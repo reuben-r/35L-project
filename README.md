@@ -1,4 +1,4 @@
-# 35L-project
+# 35L-project, Team LastMinute
 
 
 UCLA Carpool Connect 

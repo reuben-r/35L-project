@@ -16,3 +16,8 @@ If a passenger and driver both match each other, they will be provided with each
 This application will allow commuter students to save a lot of money by carpooling with people who live near them to campus.  
 
 It is important to note that students may also opt for a “split” ride, where they will carpool with one person to school and a different person back home.
+
+
+
+Quick implimentation notes:
+We can use google maps api to get general distance from zip codes to show users their options based off of distance. We will store the following data for each user: zip code, first class start time per day, last class end time per day, driver/passenger choice, reimbursment total(for drivers), maybe more things if needed.

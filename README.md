@@ -1,7 +1,8 @@
 # 35L-project
 
 
-UCLA Carpool Connect
+UCLA Carpool Connect 
+
 UCLA Commuter Students often have trouble with getting to school everyday, whether it is long commute times or paying for gas and parking every day, some students don't even have a UCLA parking pass, and they need to pay with ParkMobile every day!  In order to solve this problem, we are creating UCLA Carpool Connect for students.
 
 Students go to the Carpool Connect Website where they can copy past their class schedule into a text field, as well as where they live.  Instructions for how to copy past their schedule from MyUCLA are provided on the site.  Students are then able to choose if they are a driver or a passenger at which point they are put into the pool of students.  

@@ -20,4 +20,4 @@ It is important to note that students may also opt for a “split” ride, where
 
 
 Quick implimentation notes:
-We can use google maps api to get general distance from zip codes to show users their options based off of distance. We will store the following data for each user: zip code, first class start time per day, last class end time per day, driver/passenger choice, reimbursment total(for drivers), maybe more things if needed.
+We can use google maps api to get general distance from zip codes to show users their options based off of distance. We will store the following data for each user: zip code, first class start time per day, last class end time per day, driver/passenger choice, reimbursment total(for drivers), name, phone number, maybe more things if needed.

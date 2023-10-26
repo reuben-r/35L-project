@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'
+import './signup.css'
 function ClassScheduleInput() {
     const [input1, setInput1] = useState('');
     const [input2, setInput2] = useState('');

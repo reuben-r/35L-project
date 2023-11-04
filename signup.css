@@ -1,39 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import './signup.css'
-function ClassScheduleInput() {
-    const [input1, setInput1] = useState('');
-    const [input2, setInput2] = useState('');
-    const [input3, setInput3] = useState('');
-    const [input4, setInput4] = useState('');
-    
-
-    return (
-        <div>
-            <h1>UCLA Carpool Connect</h1>
-            <div>
-                <h3>Username</h3>
-                <input
-                    type="text"
-                    name="input1"
-                    value={input1}
-                    onChange={(e) => setInput1(e.target.value)}
-                />
-            </div>
-            <div>
-                <h3>Password</h3>
-                <input
-                    type="password" 
-                    name="input2"
-                    value={input2}
-                    onChange={(e) => setInput2(e.target.value)}
-                />
-            </div>
-           <br></br>
-            <div>
-                <button type="submit">Sign In</button>
-            </div>
-        </div>
-    );
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-export default ClassScheduleInput;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  background-color: lightblue;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./styles.css";
+import "./signup.css";
 function EditProfile() {
   //Replace with variables from server
   const [user, setUser] = useState("FastestDriver");

@@ -14,7 +14,6 @@ function EditProfile() {
   const [selectedArrival, setSelectedArrival] = useState("9:30AM");
   const [selectedDepart, setSelectedDepart] = useState("5:30PM");
 
-
   const days = [
     { value: "Monday", label: "Monday" },
     { value: "Tuesday", label: "Tuesday" },

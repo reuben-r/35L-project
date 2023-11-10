@@ -17,5 +17,6 @@ Profile Privacy
 	- Only showing one arrival/departure time that corresponds with driver, and vice versa (no one needs to know whole schedule)
 
 Lack of Participating Users
+
 	- To make it more appealing to use the site, should we give estimates on money saved after figuring our pricing scheme (last bullet point off Pricing for Drivers).
 	- i.e. For Drivers, we calculate the (cost of rider's payment) - (the extra cost of picking up riders) = (money saved off carpooling). Being able to use carpool lanes is also a benefit. For Riders, we can show the avg price they'd pay the drivers, and maybe compare them to Uber prices, gas prices, or time saved from taking the bus (as its always cheaper to bus, but takes way more time)

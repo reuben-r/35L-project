@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./signup.css";
 
-
 const Chat = () => {
   const userName = "Jonah";
   const otherUser = "Simulated";

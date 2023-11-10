@@ -1,0 +1,21 @@
+CS35L Project Ideas
+
+Pricing for Drivers (Pricing Scheme)
+	- Should we use the Los Angels Personal Vehicle Gov't Reimbursement Rate ($0.65/mile)? If not, this should be the maximum a driver can charge.
+	- Or should we use the avg mileage rate per car (i.e. 20mpg car, $5/gallon => $0.25/mile)
+	- I'd say suggest somehwere in the middle of the two choices above(closer to the latter) because we also don't want to make it too job-esque (basically Uber) by give driver's too much compenstaion.
+	- Do we add a fee for wear-tear on driver's vehicles?
+	- Are we calculating from the addresses (avg distance so you can't pinpoint home address) then showing a price range to users before they match (at the grid) so they can swipe base on their price range?
+
+Profile Additions
+	- Car Make & Model: If we decide pricing is based on mileage instead of flat fee
+	- Talkativity: Like to talk, like it quiet, etc.
+
+Profile Privacy
+	- Yes/No: Showing picture before match
+	- Yes/No: Showing gender before match
+	- Only showing one arrival/departure time that corresponds with driver, and vice versa (no one needs to know whole schedule)
+
+Lack of Participating Users
+	- To make it more appealing to use the site, should we give estimates on money saved after figuring our pricing scheme (last bullet point off Pricing for Drivers).
+	- i.e. For Drivers, we calculate the (cost of rider's payment) - (the extra cost of picking up riders) = (money saved off carpooling). Being able to use carpool lanes is also a benefit. For Riders, we can show the avg price they'd pay the drivers, and maybe compare them to Uber prices, gas prices, or time saved from taking the bus (as its always cheaper to bus, but takes way more time)

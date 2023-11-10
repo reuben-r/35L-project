@@ -42,5 +42,29 @@
 }
 
 body {
-    background-color: lightblue;
+  background-color: lightblue;
+}
+
+.Real {
+  text-align: left;
+  background-color: #218aff;
+  color: black;
+  border-radius: 10px;
+  padding: 8px;
+  max-width: 10%;
+  align-self: flex-start;
+  margin-bottom: 5px;
+  margin-right: auto;
+}
+
+.Sim {
+  text-align: left;
+  background-color: #d8d8d8;
+  color: black;
+  border-radius: 10px;
+  padding: 8px;
+  max-width: 10%;
+  align-self: flex-end;
+  margin-bottom: 5px;
+  margin-left: auto;
 }

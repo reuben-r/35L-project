@@ -22,7 +22,7 @@ function ClassScheduleInput() {
             <div>
                 <h3>Password</h3>
                 <input
-                    type="text"
+                    type="password" 
                     name="input2"
                     value={input2}
                     onChange={(e) => setInput2(e.target.value)}

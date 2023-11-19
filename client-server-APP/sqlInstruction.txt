@@ -1,0 +1,14 @@
+1. Go to be/config
+
+2. Open the file named db.js using any editor
+
+3. Change the password of your localhost(for me is RAY19991121) and user name(for me is root) if necessary.
+
+4. Be sure to install: 
+	
+	a. npm i mysql2
+	b. npm i express
+   For backend needed lib
+
+5. Run npm start on be first then run npm start for fe. 
+(Backend should be ready first)

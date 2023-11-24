@@ -47,7 +47,7 @@ router.post("/create", (req, res) => {
     }
 
     // create insert sql
-    const sql = `INSERT INTO user (name, address, password, type) VALUES ('${data.username}', '${data.address}', '${data.password}', '${data.type}');`
+    const sql = `INSERT INTO user (name, password, address, type, mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D) VALUES ('${data.username}', '${data.password}', '${data.address}', '${data.type}', '${data.mon_A}', '${data.mon_D}', '${data.tue_A}', '${data.tue_D}', '${data.wed_A}', '${data.wed_D}', '${data.thu_A}', '${data.thu_D}', '${data.fri_A}', '${data.fri_D}');`
 
     // create user
     db.query(sql, (err, data) => {

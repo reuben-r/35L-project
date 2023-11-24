@@ -8,6 +8,7 @@ import Schedule from './schedule';
 import Grid from './grid';
 import UserTable from './usertable';
 import FormSign from './formsign';
+import SignIn from './signin';
 
 
 
@@ -42,8 +43,8 @@ function App() {
     <Link to="/usertable">
       <button>UserTable</button>
     </Link>
-    <Link to="/formsign">
-      <button>Sign up \(form\)</button>
+    <Link to="/signin">
+      <button>Sign in</button>
     </Link>
 	</div>
   {/* Reuben test stuff*/}
@@ -61,8 +62,8 @@ function App() {
     <Route exact path='/usertable'>
       <UserTable />
     </Route>
-    <Route exact path='/formsign'>
-      <FormSign />
+    <Route exact path='/signin'>
+      <SignIn />
     </Route>
 
 	</Switch>

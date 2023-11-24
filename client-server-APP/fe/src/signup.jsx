@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './signup.css'
 function ClassScheduleInput() {
-    const [input1, setInput1] = useState('');
-    const [input2, setInput2] = useState('');
-    const [input3, setInput3] = useState('');
-    const [input4, setInput4] = useState('');
+    const [username_input, setUsername_input] = useState('');
+    const [password_input, setPassword_input] = useState('');
+    const [address_input, setAddress_input] = useState('');
+    const [schedule_input, setSchedule_input] = useState('');
     const [selectedChoice, setSelectedChoice] = useState('Driver');
     const [m1, setM1] = useState("");
     const [t1, setT1] = useState("");
@@ -19,15 +19,28 @@ function ClassScheduleInput() {
     const [f2, setF2] = useState("");
 
     useEffect(() => {
-        calculateSched(input4);
-    }, [input4]);
+        calculateSched(schedule_input);
+    }, [schedule_input]);
 
     const handleSubmit = () => {
+
+        calculateSched(schedule_input);
+
         axios.post("http://localhost:8081/user/create", {
-            username: input1,
-            password: input2,
-            address: input3,
+            username: username_input,
+            password: password_input,
+            address: address_input,
             type: selectedChoice,
+            mon_A: m1,
+            mon_D: m2,
+            tue_A: t1,
+            tue_D: t2,
+            wed_A: w1,
+            wed_D: w2,
+            thu_A: r1,
+            thu_D: r2,
+            fri_A: f1, 
+            fri_D: f2
         }).then(res => {
             console.log(res)
         })
@@ -138,36 +151,36 @@ function ClassScheduleInput() {
                 <h3>Username</h3>
                 <input
                     type="text"
-                    name="input1"
-                    value={input1}
-                    onChange={(e) => setInput1(e.target.value)}
+                    name="username_input"
+                    value={username_input}
+                    onChange={(e) => setUsername_input(e.target.value)}
                 />
             </div>
             <div>
                 <h3>Password</h3>
                 <input
                     type="text"
-                    name="input2"
-                    value={input2}
-                    onChange={(e) => setInput2(e.target.value)}
+                    name="password_input"
+                    value={password_input}
+                    onChange={(e) => setPassword_input(e.target.value)}
                 />
             </div>
             <div>
                 <h3>Your Home Address</h3>
                 <input
                     type="text"
-                    name="input3"
-                    value={input3}
-                    onChange={(e) => setInput3(e.target.value)}
+                    name="address_input"
+                    value={address_input}
+                    onChange={(e) => setAddress_input(e.target.value)}
                 />
             </div>
             <div>
                 <h3>Your Class Schedule</h3>
                 <input
                     type="text"
-                    name="input4"
-                    value={input4}
-                    onChange={(e) => setInput4(e.target.value)}
+                    name="schedule_input"
+                    value={schedule_input}
+                    onChange={(e) => setSchedule_input(e.target.value)}
                 />
             </div>
             <div>
@@ -186,8 +199,8 @@ function ClassScheduleInput() {
             <div>
                 <br></br>
                 <h2>Account Overview</h2>
-                <p>Username: {input1}</p>
-                <p>Home Address: {input3}</p>
+                <p>Username: {username_input}</p>
+                <p>Home Address: {address_input}</p>
                 <p>Account Type: {selectedChoice}</p>
                 <br></br>
                 <h3>Ride Schedule</h3>

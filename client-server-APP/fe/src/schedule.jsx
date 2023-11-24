@@ -20,14 +20,26 @@ function ClassScheduleInput() {
   const [error, setError] = useState(null);
   const fetchData = () => {
     axios.get(`http://localhost:8081/user/getData/${id}`)
-      .then(response => {
-        setData(response.data);
-        setError(null);
-      })
-      .catch(error => {
-        setError(error.response ? error.response.data : error.message);
-        setData(null);
-      });
+    .then(response => {
+      const [mon_A, tue_A, wed_A, thu_A, fri_A, mon_D, tue_D, wed_D, thu_D, fri_D] = response.data;
+
+      setM1(mon_A);
+      setT1(tue_A);
+      setW1(wed_A);
+      setR1(thu_A);
+      setF1(fri_A);
+
+      setM2(mon_D);
+      setT2(tue_D);
+      setW2(wed_D);
+      setR2(thu_D);
+      setF2(fri_D);
+
+      setError(null);
+    })
+    .catch(error => {
+      setError(error.response ? error.response.data : error.message);
+    });
   };
 
 
@@ -113,12 +125,10 @@ function ClassScheduleInput() {
       />
       <button onClick={fetchData}>Fetch Data</button>
 
-      {data && (
-        <div>
-          <h2>Data:</h2>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )}
+      <div>
+        <h2>Mon_A: {mon_A}</h2>
+        <h2>Tue_A: {tue_A}</h2>
+      </div>
 
       {error && (
         <div>

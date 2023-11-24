@@ -57,6 +57,30 @@ router.post("/create", (req, res) => {
 })
 
 
+router.get('/getData/:id', (req, res) => {
+    const id = req.params.id;
+  
+    const query = `SELECT mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D FROM user WHERE id = ${id}`;
+  
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Database query error: ' + err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).json({ error: 'Data not found' });
+        return;
+      }
+  
+      // Extract values and return as an array
+      const data = Object.values(result[0]);
+      res.json(data);
+    });
+  });
+
+
 // this should be implemented after signIn logic completed
 // should get user id from session, current just get from query
 router.get("/info/:id", (req, res) => {

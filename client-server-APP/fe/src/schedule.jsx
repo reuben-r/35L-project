@@ -1,7 +1,36 @@
 import React, { useState, useEffect } from "react";
 import "./signup.css";
+import axios from 'axios'
 
 function ClassScheduleInput() {
+  const [mon_A, setM1] = useState("");
+  const [tue_A, setT1] = useState("");
+  const [wed_A, setW1] = useState("");
+  const [thu_a, setR1] = useState("");
+  const [fri_A, setF1] = useState("");
+  const [mon_D, setM2] = useState("");
+  const [tue_D, setT2] = useState("");
+  const [wed_D, setW2] = useState("");
+  const [thu_D, setR2] = useState("");
+  const [fri_D, setF2] = useState("");
+
+
+  const [id, setId] = useState('');
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const fetchData = () => {
+    axios.get(`http://localhost:8081/user/getData/${id}`)
+      .then(response => {
+        setData(response.data);
+        setError(null);
+      })
+      .catch(error => {
+        setError(error.response ? error.response.data : error.message);
+        setData(null);
+      });
+  };
+
+
   const m8 = "Ride with Reuben to UCLA";
   const m9 = "";
   const m10 = "";
@@ -74,6 +103,32 @@ function ClassScheduleInput() {
 
   return (
     <div>
+      <div>
+      <label htmlFor="idInput">Enter ID:</label>
+      <input
+        type="text"
+        id="idInput"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
+      />
+      <button onClick={fetchData}>Fetch Data</button>
+
+      {data && (
+        <div>
+          <h2>Data:</h2>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      )}
+
+      {error && (
+        <div>
+          <h2>Error:</h2>
+          <pre>{JSON.stringify(error, null, 2)}</pre>
+        </div>
+      )}
+    </div>
+
+
       <h1>Schedule View Page</h1>
       <table border="22">
         <tr>

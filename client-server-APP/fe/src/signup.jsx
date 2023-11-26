@@ -22,6 +22,24 @@ function ClassScheduleInput() {
         calculateSched(schedule_input);
     }, [schedule_input]);
 
+
+    const [driver_input, setDriver_input] = useState('');
+    const [rider_input, setRider_input] = useState('');
+    const [day_input, setDay_input] = useState('');
+    const [time_input, setTime_input] = useState('');
+    const [a_or_d, setA_or_D] = useState('');
+    const handleAddRide = () => {
+        axios.post("http://localhost:8081/user/addRide", {
+            driver: driver_input,
+            rider: rider_input,
+            day: day_input,
+            time: time_input,
+            AorD: a_or_d
+        }).then(res => {
+            console.log(res)
+        })
+    }
+
     const handleSubmit = () => {
 
         calculateSched(schedule_input);
@@ -212,6 +230,26 @@ function ClassScheduleInput() {
             </div>
             <div>
                 <button onClick={handleSubmit} type="submit">Sign Up</button>
+            </div>
+
+            // add ride button
+            <div>
+                <label htmlFor="driverInput">Driver:</label>
+                <input type="text" id="driverInput" value={driver_input} onChange={(e) => setDriver_input(e.target.value)} />
+
+                <label htmlFor="riderInput">Rider:</label>
+                <input type="text" id="riderInput" value={rider_input} onChange={(e) => setRider_input(e.target.value)} />
+
+                <label htmlFor="dayInput">Day:</label>
+                <input type="text" id="dayInput" value={day_input} onChange={(e) => setDay_input(e.target.value)} />
+
+                <label htmlFor="timeInput">Time:</label>
+                <input type="text" id="timeInput" value={time_input} onChange={(e) => setTime_input(e.target.value)} />
+
+                <label htmlFor="AorDInput">Arrival or Departure:</label>
+                <input type="text" id="AorDInput" value={a_or_d} onChange={(e) => setA_or_D(e.target.value)} />
+
+                <button onClick={handleAddRide}>Add Ride</button>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ const db = require("../config/db")
 const validType = ["Driver", "Rider"]
 
 
-// get user name, password, address and type (Driver or Rider)
+// post a user to the database
 router.post("/create", (req, res) => {
     const data = req.body
 
@@ -56,7 +56,7 @@ router.post("/create", (req, res) => {
     })
 })
 
-
+// get schedule from user ID
 router.get('/getData/:id', (req, res) => {
     const id = req.params.id;
   
@@ -80,6 +80,58 @@ router.get('/getData/:id', (req, res) => {
     });
   });
 
+
+
+//SQL command doesnt work yet.
+// Add a ride to a user given another userID and a date/time
+router.post("/addRide",  (req, res) => {
+    const data = req.body
+
+    if (!data.driver) {
+        return res.json({
+            msg: "driver required",
+            status: "fail"
+        }).status(400)
+    }
+    if (!data.rider) {
+        return res.json({
+            msg: "rider required",
+            status: "fail"
+        }).status(400)
+    }
+    if (!data.day) {
+        return res.json({
+            msg: "day required",
+            status: "fail"
+        }).status(400)
+    }
+    if (!data.time) {
+        return res.json({
+            msg: "time required",
+            status: "fail"
+        }).status(400)
+    }
+    if (!data.AorD) {
+        return res.json({
+            msg: "arrival or departure required",
+            status: "fail"
+        }).status(400)
+    }
+
+
+    const col = `P-${data.day.substring(0, 3)}_${data.AorD}`;
+    console.log(col)
+
+    const sql = `UPDATE user
+    SET ${col} = ${data.time}
+    WHERE name = ${data.rider};`
+
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data)
+    })
+
+});
 
 // this should be implemented after signIn logic completed
 // should get user id from session, current just get from query

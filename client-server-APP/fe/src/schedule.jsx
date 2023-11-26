@@ -14,6 +14,17 @@ function ClassScheduleInput() {
   const [thu_D, setR2] = useState("");
   const [fri_D, setF2] = useState("");
 
+  const [P_mon_A, setPM1] = useState("");
+  const [P_tue_A, setPT1] = useState("");
+  const [P_wed_A, setPW1] = useState("");
+  const [P_thu_a, setPR1] = useState("");
+  const [P_fri_A, setPF1] = useState("");
+  const [P_mon_D, setPM2] = useState("");
+  const [P_tue_D, setPT2] = useState("");
+  const [P_wed_D, setPW2] = useState("");
+  const [P_thu_D, setPR2] = useState("");
+  const [P_fri_D, setPF2] = useState("");
+
 
   const [id, setId] = useState('');
   const [data, setData] = useState(null);
@@ -21,7 +32,7 @@ function ClassScheduleInput() {
   const fetchData = () => {
     axios.get(`http://localhost:8081/user/getData/${id}`)
     .then(response => {
-      const [mon_A, tue_A, wed_A, thu_A, fri_A, mon_D, tue_D, wed_D, thu_D, fri_D] = response.data;
+      const [mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D, Pmon_A, Pmon_D, Ptue_A, Ptue_D, Pwed_A, Pwed_D, Pthu_A, Pthu_D, Pfri_A, Pfri_D] = response.data;
 
       setM1(mon_A);
       setT1(tue_A);
@@ -34,6 +45,18 @@ function ClassScheduleInput() {
       setW2(wed_D);
       setR2(thu_D);
       setF2(fri_D);
+
+      setPM1(Pmon_A);
+      setPT1(Ptue_A);
+      setPW1(Pwed_A);
+      setPR1(Pthu_A);
+      setPF1(Pfri_A);
+
+      setPM2(Pmon_D);
+      setPT2(Ptue_D);
+      setPW2(Pwed_D);
+      setPR2(Pthu_D);
+      setPF2(Pfri_D);
 
       setError(null);
     })
@@ -127,7 +150,13 @@ function ClassScheduleInput() {
 
       <div>
         <h2>Mon_A: {mon_A}</h2>
+        <h2>Mon_D: {mon_D}</h2>
         <h2>Tue_A: {tue_A}</h2>
+        <h2>Tue_D: {tue_D}</h2>
+        <h2>P-Mon_A: {P_mon_A}</h2>
+        <h2>P-Mon_D: {P_mon_D}</h2>
+        <h2>P-Tue_A: {P_tue_A}</h2>
+        <h2>P-Tue_D: {P_tue_D}</h2>
       </div>
 
       {error && (

@@ -334,7 +334,7 @@ function changeTime(time, sign) {
   if (sign == "+") {
     time++;
   } else {
-    if (temp == 0) {
+    if (time == 0) {
       return time;
     }
     time--;

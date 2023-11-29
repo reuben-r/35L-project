@@ -68,13 +68,13 @@ const DistanceCalculator = () => {
           if (label !== "Home" && label !== "School") {
             marker.addListener("click", () => {
               const shouldRequestRide = window.confirm(
-                `Do you want to request a ${
+                `Do you want to book a ${
                   selectedOption === "arrival" ? "ride to" : "ride from"
                 } ${label} on ${selectedDay}?`,
               );
               if (shouldRequestRide) {
                 setRequestStatus(
-                  `Request to ${label} on ${selectedDay} submitted`,
+                  `Ride to ${label} on ${selectedDay} booked`,
                 );
                 // Send to Backend
               } else {

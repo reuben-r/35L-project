@@ -6,7 +6,7 @@ const DistanceCalculator = () => {
   const place2 = "90096";
   const place3 = "90071";
   const [map, setMap] = useState(null);
-  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedDay, setSelectedDay] = useState("");
   const [selectedOption, setSelectedOption] = useState("arrival");
   const [requestStatus, setRequestStatus] = useState(null);
 
@@ -48,7 +48,7 @@ const DistanceCalculator = () => {
 
     setMap(newMap);
 
-    addMarker(newMap, place, "Home", "blue");
+    addMarker(newMap, place, "Home", "blue", "https://www.google.com");
     addMarker(newMap, place2, "Jacob", "green");
     addMarker(newMap, place3, "School", "yellow");
   };
@@ -76,7 +76,11 @@ const DistanceCalculator = () => {
                 setRequestStatus(
                   `Request to ${label} on ${selectedDay} submitted`,
                 );
-                // send to Backend
+                // Send to Backend
+              } else {
+                setSelectedDay(null);
+                setSelectedOption("arrival");
+                setRequestStatus(null);
               }
             });
           }
@@ -89,8 +93,8 @@ const DistanceCalculator = () => {
     setSelectedDay(day);
   };
 
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
+  const handleOptionSelect = (event) => {
+    setSelectedOption(event);
   };
 
   const handleAdditionalRequests = () => {
@@ -103,39 +107,32 @@ const DistanceCalculator = () => {
     <div>
       <div>
         <label>Select Day:</label>
-        <div>
-          <button onClick={() => handleDaySelect("Monday")}>Monday</button>
-          <button onClick={() => handleDaySelect("Tuesday")}>Tuesday</button>
-          <button onClick={() => handleDaySelect("Wednesday")}>
-            Wednesday
-          </button>
-          <button onClick={() => handleDaySelect("Thursday")}>Thursday</button>
-          <button onClick={() => handleDaySelect("Friday")}>Friday</button>
-          <button onClick={() => handleDaySelect("Saturday")}>Saturday</button>
-          <button onClick={() => handleDaySelect("Sunday")}>Sunday</button>
-        </div>
+        <select onChange={(e) => handleDaySelect(e.target.value)}>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
       </div>
       <div>
         <label>Select Option:</label>
+        <select onChange={(e) => handleOptionSelect(e.target.value)}>
+          <option value="arrival">Arrival</option>
+          <option value="departure">Departure</option>
+        </select>
+      </div>
+      {requestStatus && (
         <div>
-          <button onClick={() => handleOptionSelect("arrival")}>Arrival</button>
-          <button onClick={() => handleOptionSelect("departure")}>
-            Departure
+          <button onClick={handleAdditionalRequests}>
+            Make Additional Requests
           </button>
         </div>
-      </div>
-
+      )}
       <div id="map" style={{ height: "400px", width: "100%" }}></div>
       {requestStatus && <p>{requestStatus}</p>}
-      <div>
-        {requestStatus && (
-          <div>
-            <button onClick={handleAdditionalRequests}>
-              Make Additional Requests
-            </button>
-          </div>
-        )}
-      </div>
     </div>
   );
 };

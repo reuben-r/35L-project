@@ -4,7 +4,7 @@ import "./signup.css";
 const DistanceCalculator = () => {
   const place = "91367";
   const place2 = "90096";
-  const place3 = "91366";
+  const place3 = "90071";
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const DistanceCalculator = () => {
         } else {
           console.error(
             "Geocode was not successful for the following reason:",
-            status
+            status,
           );
         }
       });
@@ -45,7 +45,7 @@ const DistanceCalculator = () => {
   const createMap = (center) => {
     const newMap = new window.google.maps.Map(document.getElementById("map"), {
       center: center,
-      zoom: 12
+      zoom: 12,
     });
 
     setMap(newMap);
@@ -54,6 +54,8 @@ const DistanceCalculator = () => {
     addMarker(newMap, place2, "Jacob", "green");
     addMarker(newMap, place3, "School", "yellow");
   };
+
+  const [requestStatus, setRequestStatus] = useState(null); // State to track request status
 
   const addMarker = (map, location, label, color, link) => {
     if (location) {
@@ -64,22 +66,36 @@ const DistanceCalculator = () => {
             position: results[0].geometry.location,
             map,
             title: label,
-            icon: `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`
+            icon: `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`,
           });
-          marker.addListener("click", () => {
-            window.location.href = link;
-          });
+
+          if (label !== "Home" && label !== "School") {
+            marker.addListener("click", () => {
+              const shouldRequestRide = window.confirm(
+                `Do you want to request a ride from ${label}?`,
+              );
+              if (shouldRequestRide) {
+                setRequestStatus(`Request to ${label} submitted`);
+                // Perform any additional actions when the request is submitted
+              }
+            });
+          }
         } else {
           console.error(
             "Geocode was not successful for the following reason:",
-            status
+            status,
           );
         }
       });
     }
   };
 
-  return <div id="map" style={{ height: "400px", width: "100%" }}></div>;
+  return (
+    <div>
+      <div id="map" style={{ height: "400px", width: "100%" }}></div>
+      {requestStatus && <p>{requestStatus}</p>}
+    </div>
+  );
 };
 
 export default DistanceCalculator;

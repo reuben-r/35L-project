@@ -6,6 +6,9 @@ const DistanceCalculator = () => {
   const place2 = "90096";
   const place3 = "90071";
   const [map, setMap] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("arrival");
+  const [requestStatus, setRequestStatus] = useState(null);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -13,11 +16,11 @@ const DistanceCalculator = () => {
     script.async = true;
     script.defer = true;
 
-    script.onload = () => {
+    document.head.appendChild(script);
+
+    window.initMap = () => {
       initMap();
     };
-
-    document.head.appendChild(script);
 
     return () => {
       document.head.removeChild(script);
@@ -32,11 +35,6 @@ const DistanceCalculator = () => {
         if (status === "OK" && results[0]) {
           const location = results[0].geometry.location;
           createMap(location);
-        } else {
-          console.error(
-            "Geocode was not successful for the following reason:",
-            status,
-          );
         }
       });
     }
@@ -45,20 +43,18 @@ const DistanceCalculator = () => {
   const createMap = (center) => {
     const newMap = new window.google.maps.Map(document.getElementById("map"), {
       center: center,
-      zoom: 12,
+      zoom: 10,
     });
 
     setMap(newMap);
 
-    addMarker(newMap, place, "Home", "blue", "https://www.google.com");
+    addMarker(newMap, place, "Home", "blue");
     addMarker(newMap, place2, "Jacob", "green");
     addMarker(newMap, place3, "School", "yellow");
   };
 
-  const [requestStatus, setRequestStatus] = useState(null); // State to track request status
-
   const addMarker = (map, location, label, color, link) => {
-    if (location) {
+    if (map) {
       const geocoder = new window.google.maps.Geocoder();
       geocoder.geocode({ address: location }, (results, status) => {
         if (status === "OK" && results[0]) {
@@ -72,28 +68,74 @@ const DistanceCalculator = () => {
           if (label !== "Home" && label !== "School") {
             marker.addListener("click", () => {
               const shouldRequestRide = window.confirm(
-                `Do you want to request a ride from ${label}?`,
+                `Do you want to request a ${
+                  selectedOption === "arrival" ? "ride to" : "ride from"
+                } ${label} on ${selectedDay}?`,
               );
               if (shouldRequestRide) {
-                setRequestStatus(`Request to ${label} submitted`);
-                // Perform any additional actions when the request is submitted
+                setRequestStatus(
+                  `Request to ${label} on ${selectedDay} submitted`,
+                );
+                // send to Backend
               }
             });
           }
-        } else {
-          console.error(
-            "Geocode was not successful for the following reason:",
-            status,
-          );
         }
       });
     }
   };
 
+  const handleDaySelect = (day) => {
+    setSelectedDay(day);
+  };
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleAdditionalRequests = () => {
+    setSelectedDay(null);
+    setSelectedOption("arrival");
+    setRequestStatus(null);
+  };
+
   return (
     <div>
+      <div>
+        <label>Select Day:</label>
+        <div>
+          <button onClick={() => handleDaySelect("Monday")}>Monday</button>
+          <button onClick={() => handleDaySelect("Tuesday")}>Tuesday</button>
+          <button onClick={() => handleDaySelect("Wednesday")}>
+            Wednesday
+          </button>
+          <button onClick={() => handleDaySelect("Thursday")}>Thursday</button>
+          <button onClick={() => handleDaySelect("Friday")}>Friday</button>
+          <button onClick={() => handleDaySelect("Saturday")}>Saturday</button>
+          <button onClick={() => handleDaySelect("Sunday")}>Sunday</button>
+        </div>
+      </div>
+      <div>
+        <label>Select Option:</label>
+        <div>
+          <button onClick={() => handleOptionSelect("arrival")}>Arrival</button>
+          <button onClick={() => handleOptionSelect("departure")}>
+            Departure
+          </button>
+        </div>
+      </div>
+
       <div id="map" style={{ height: "400px", width: "100%" }}></div>
       {requestStatus && <p>{requestStatus}</p>}
+      <div>
+        {requestStatus && (
+          <div>
+            <button onClick={handleAdditionalRequests}>
+              Make Additional Requests
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

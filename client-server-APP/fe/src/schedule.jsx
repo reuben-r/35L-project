@@ -1,71 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./signup.css";
-import axios from 'axios'
 
 function ClassScheduleInput() {
-  const [mon_A, setM1] = useState("");
-  const [tue_A, setT1] = useState("");
-  const [wed_A, setW1] = useState("");
-  const [thu_a, setR1] = useState("");
-  const [fri_A, setF1] = useState("");
-  const [mon_D, setM2] = useState("");
-  const [tue_D, setT2] = useState("");
-  const [wed_D, setW2] = useState("");
-  const [thu_D, setR2] = useState("");
-  const [fri_D, setF2] = useState("");
-
-  const [P_mon_A, setPM1] = useState("");
-  const [P_tue_A, setPT1] = useState("");
-  const [P_wed_A, setPW1] = useState("");
-  const [P_thu_a, setPR1] = useState("");
-  const [P_fri_A, setPF1] = useState("");
-  const [P_mon_D, setPM2] = useState("");
-  const [P_tue_D, setPT2] = useState("");
-  const [P_wed_D, setPW2] = useState("");
-  const [P_thu_D, setPR2] = useState("");
-  const [P_fri_D, setPF2] = useState("");
-
-
-  const [id, setId] = useState('');
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const fetchData = () => {
-    axios.get(`http://localhost:8081/user/getData/${id}`)
-    .then(response => {
-      const [mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D, Pmon_A, Pmon_D, Ptue_A, Ptue_D, Pwed_A, Pwed_D, Pthu_A, Pthu_D, Pfri_A, Pfri_D] = response.data;
-
-      setM1(mon_A);
-      setT1(tue_A);
-      setW1(wed_A);
-      setR1(thu_A);
-      setF1(fri_A);
-
-      setM2(mon_D);
-      setT2(tue_D);
-      setW2(wed_D);
-      setR2(thu_D);
-      setF2(fri_D);
-
-      setPM1(Pmon_A);
-      setPT1(Ptue_A);
-      setPW1(Pwed_A);
-      setPR1(Pthu_A);
-      setPF1(Pfri_A);
-
-      setPM2(Pmon_D);
-      setPT2(Ptue_D);
-      setPW2(Pwed_D);
-      setPR2(Pthu_D);
-      setPF2(Pfri_D);
-
-      setError(null);
-    })
-    .catch(error => {
-      setError(error.response ? error.response.data : error.message);
-    });
-  };
-
-
   const m8 = "Ride with Reuben to UCLA";
   const m9 = "";
   const m10 = "";
@@ -138,36 +74,6 @@ function ClassScheduleInput() {
 
   return (
     <div>
-      <div>
-      <label htmlFor="idInput">Enter ID:</label>
-      <input
-        type="text"
-        id="idInput"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-      />
-      <button onClick={fetchData}>Fetch Data</button>
-
-      <div>
-        <h2>Mon_A: {mon_A}</h2>
-        <h2>Mon_D: {mon_D}</h2>
-        <h2>Tue_A: {tue_A}</h2>
-        <h2>Tue_D: {tue_D}</h2>
-        <h2>P-Mon_A: {P_mon_A}</h2>
-        <h2>P-Mon_D: {P_mon_D}</h2>
-        <h2>P-Tue_A: {P_tue_A}</h2>
-        <h2>P-Tue_D: {P_tue_D}</h2>
-      </div>
-
-      {error && (
-        <div>
-          <h2>Error:</h2>
-          <pre>{JSON.stringify(error, null, 2)}</pre>
-        </div>
-      )}
-    </div>
-
-
       <h1>Schedule View Page</h1>
       <table border="22">
         <tr>

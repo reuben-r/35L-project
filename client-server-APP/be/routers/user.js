@@ -57,7 +57,7 @@ router.post("/create", (req, res) => {
 })
 
 // get schedule from user ID
-router.get('/getData/:id', (req, res) => {
+router.get('/getSched/:id', (req, res) => {
     const id = req.params.id;
   
     const query = `SELECT mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D FROM user WHERE id = ${id}`;
@@ -81,18 +81,56 @@ router.get('/getData/:id', (req, res) => {
   });
 
 
+  //get an ID when inputting a name
+  router.get('/nameToID/:name', (req, res) => {
+    const name = req.params.name;
+  
+    const query = `SELECT id FROM user WHERE name = '${name}'`;
+  
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Database query error: ' + err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).json({ error: 'Data not found' });
+        return;
+      }
+      const data = Object.values(result[0]);
+      res.json(data);
+    });
+  });
 
-//SQL command doesnt work yet.
+
+  //get an ID when inputting a name
+  router.get('/idToAddress/:id', (req, res) => {
+    const id = req.params.id;
+  
+    const query = `SELECT address FROM user WHERE id = '${id}'`;
+  
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Database query error: ' + err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).json({ error: 'Data not found' });
+        return;
+      }
+      const data = Object.values(result[0]);
+      res.json(data);
+    });
+  });
+
+
 // Add a ride to a user given another userID and a date/time
 router.post("/addRide",  (req, res) => {
     const data = req.body
 
-    if (!data.driver) {
-        return res.json({
-            msg: "driver required",
-            status: "fail"
-        }).status(400)
-    }
     if (!data.rider) {
         return res.json({
             msg: "rider required",
@@ -119,19 +157,21 @@ router.post("/addRide",  (req, res) => {
     }
 
 
-    const col = `P-${data.day.substring(0, 3)}_${data.AorD}`;
+    const col = `P-${data.day.substring(0, 3).toLowerCase()}_${data.AorD.substring(0,1).toUpperCase()}`;
     console.log(col)
+    const rider = `${data.rider}`
 
-    const sql = `UPDATE user
-    SET ${col} = ${data.time}
-    WHERE name = ${data.rider};`
 
+    const sql = `UPDATE user SET \`${col}\` = '${data.time}' WHERE name = '${rider}';`
+
+    console.log(sql)
     db.query(sql, (err, data) => {
         if (err) return res.json(err);
         return res.json(data)
     })
 
 });
+
 
 // this should be implemented after signIn logic completed
 // should get user id from session, current just get from query

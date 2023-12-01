@@ -10,6 +10,7 @@ import Signin from "./signin";
 import Tutorial from "./tutorial";
 import Profiles_Driver from "./profilesAPI_Driver";
 import Profiles_Rider from "./profilesAPI_Rider";
+import Test from "./test"
 
 function App() {
   return (
@@ -49,6 +50,9 @@ function App() {
             <Link to="/profilesAPI_Driver">
               <button>Book Rides</button>
             </Link>
+            <Link to="/test">
+              <button>Test</button>
+            </Link>
           </div>
 
           <div className="LinkPage">
@@ -73,6 +77,9 @@ function App() {
               </Route>
               <Route exact path="/tutorial">
                 <Tutorial />
+              </Route>
+              <Route exact path="/test">
+                <Test />
               </Route>
             </Switch>
           </div>

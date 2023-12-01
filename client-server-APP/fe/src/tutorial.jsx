@@ -218,7 +218,7 @@ const PageFive = () => {
   );
 };
 
-const App = () => (
+const TutorialApp = () => (
   <Router>
     <Route path="/" exact component={PageOne} />
     <Route path="/page-two" component={PageTwo} />
@@ -228,4 +228,4 @@ const App = () => (
   </Router>
 );
 
-export default App;
+export default TutorialApp;

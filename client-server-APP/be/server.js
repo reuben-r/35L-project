@@ -34,10 +34,6 @@ db.connect(function(err) {
 app.use('/user', userRouter)
 
 
-// Need to add a form for the signup page
-// Then add event handler, such that submitting the form calls a function in backend
-// The function called in backend should do a sql insert
-
 app.post('/', (req, res) => {
     const {parcel} = req.body
     if (!parcel){

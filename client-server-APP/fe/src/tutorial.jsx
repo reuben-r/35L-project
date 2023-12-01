@@ -51,7 +51,7 @@ const PageThree = () => {
         says "Agenda View"{" "}
       </h2>
       <div style={{ fontSize: "2em", textAlign: "center" }}>
-        <span onClick={() => history.push("/")} style={{ cursor: "pointer" }}>
+        <span onClick={() => history.push("/page-two")} style={{ cursor: "pointer" }}>
           &#8592;{" "}
         </span>
         <Link to="/page-four">&#8594; </Link>

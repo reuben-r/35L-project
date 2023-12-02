@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import "./signup.css";
-function ClassScheduleInput() {
+const ClassScheduleInput = ({ onSignUpSuccess }) => {
+    const history = useHistory();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
@@ -8,7 +11,7 @@ function ClassScheduleInput() {
 
   return (
     <div>
-      <h1>UCLA Carpool Connect</h1>
+      
       <div>
         <h3>Username</h3>
         <input
@@ -29,7 +32,7 @@ function ClassScheduleInput() {
       </div>
       <br></br>
       <div>
-        <button type="submit">Sign In</button>
+              <button type="submit" onClick={() => { onSignUpSuccess(); history.push("/"); }}>Sign In</button>
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import './signup.css'
-function ClassScheduleInput() {
+const ClassScheduleInput = ({ onSignUpSuccess }) => {
+
+    const history = useHistory();
     const [username_input, setUsername_input] = useState('');
     const [password_input, setPassword_input] = useState('');
     const [address_input, setAddress_input] = useState('');
@@ -63,6 +66,8 @@ function ClassScheduleInput() {
         }).then(res => {
             console.log(res)
         })
+        onSignUpSuccess(); 
+        history.push("/");
     }
 
 

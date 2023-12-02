@@ -172,6 +172,25 @@ router.post("/addRide",  (req, res) => {
 
 });
 
+ //get a 0 or 1 when inputting a username and password
+ router.post('/goodSign', (req, res) => {
+    const data = req.body  
+    const query = `SELECT * FROM user WHERE name = '${data.username}' AND password = '${data.password}'`;
+  
+    console.log(query)
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Database query error: ' + err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      
+      const out = (result.length === 0);
+      console.log(out)
+      res.json(out);
+    });
+  });
+
 
 // this should be implemented after signIn logic completed
 // should get user id from session, current just get from query

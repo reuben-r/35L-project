@@ -219,7 +219,7 @@ const Tutorial = () => (
     <div>
         <Router>
             <Switch>
-                <Route exact path="/tutorial/" exact component={PageOne}>
+                <Route exact path="/tutorial/" component={PageOne}>
                     <PageOne />
             </Route>
             <Route exact path="/tutorial/page-two" component={PageTwo}>

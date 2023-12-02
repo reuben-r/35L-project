@@ -44,15 +44,15 @@ function App() {
                     <Link to="/signup">
                         <button>Sign Up</button>
                     </Link>
+                      <Link to="/tutorial">
+                        <button>Schedule Import Tutorial</button>
+                    </Link>
                 </div>
             )}
 
             
             {showMenu && (
                 <div className="navBar">
-                    <Link to="/tutorial">
-                        <button>Schedule Import Tutorial</button>
-                    </Link>
                     <Link to="/schedule">
                         <button>Schedule</button>
                     </Link>

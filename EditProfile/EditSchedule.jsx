@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./signup.css";
-import axios from 'axios'
 
 function EditSchedule() {
   const password = "test"; //User Password
@@ -23,12 +22,12 @@ function EditSchedule() {
     const regexM2 =
       /(?:Monday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Tuesday|Wednesday|Thursday|Friday|$)/;
     const regexT2 =
-      /(?:Tuesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Wednesday|Thursday|Friday|$)/;
+      /(?:Tuesday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Wednesday|Thursday|Friday|$)/;
     const regexW2 =
-      /(?:Wednesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Thursday|Friday|$)/;
+      /(?:Wednesday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Thursday|Friday|$)/;
     const regexR2 =
-      /(?:Thursday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Friday|$)/;
-    const regexF2 = /(?:Friday .*?) .* - (\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
+      /(?:Thursday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Friday|$)/;
+    const regexF2 = /(?:Friday .*?) .* - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
 
     const matchM1 = regexM1.exec(i);
     const matchT1 = regexT1.exec(i);

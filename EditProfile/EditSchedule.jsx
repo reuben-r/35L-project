@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./signup.css";
+import axios from 'axios'
 
 function EditSchedule() {
   const password = "test"; //User Password
   const [pwd, setPwd] = useState(""); //Password Check
-  const id = 123456789;
 
   const [selectedInput, setSelectedInput] = useState("Automatic");
   const inputs = [
@@ -14,7 +14,6 @@ function EditSchedule() {
 
   const [schedule_input, setSchedule_input] = useState("");
 
-  
   function calculateSched(i) {
     const regexM1 = /(?:Monday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
     const regexT1 = /(?:Tuesday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
@@ -42,11 +41,9 @@ function EditSchedule() {
     const matchR2 = regexR2.exec(i);
     const matchF2 = regexF2.exec(i);
 
-
-
     if (matchM1) {
-      if( matchM1[3] == "AM"  || matchM1[1] == 12 ) {
-        setmArr(matchM1[1]);
+      if (matchM1[3] == "AM" || matchM1[1] == 12) {
+        setmArr(parseInt(matchM1[1]));
       } else {
         setmArr(parseInt(matchM1[1]) + 12);
       }
@@ -55,8 +52,8 @@ function EditSchedule() {
     }
 
     if (matchT1) {
-      if( matchT1[3] == "AM" || matchT1[1] == 12 ) {
-        settArr(matchT1[1]);
+      if (matchT1[3] == "AM" || matchT1[1] == 12) {
+        settArr(parseInt(matchT1[1]));
       } else {
         settArr(parseInt(matchT1[1]) + 12);
       }
@@ -65,8 +62,8 @@ function EditSchedule() {
     }
 
     if (matchW1) {
-      if( matchW1[3] == "AM" || matchW1[1] == 12 ) {
-        setwArr(matchW1[1]);
+      if (matchW1[3] == "AM" || matchW1[1] == 12) {
+        setwArr(parseInt(matchW1[1]));
       } else {
         setwArr(parseInt(matchW1[1]) + 12);
       }
@@ -75,8 +72,8 @@ function EditSchedule() {
     }
 
     if (matchR1) {
-      if( matchR1[3] == "AM" || matchR1[1] == 12 ) {
-        setrArr(matchR1[1]);
+      if (matchR1[3] == "AM" || matchR1[1] == 12) {
+        setrArr(parseInt(matchR1[1]));
       } else {
         setrArr(parseInt(matchR1[1]) + 12);
       }
@@ -85,8 +82,8 @@ function EditSchedule() {
     }
 
     if (matchF1) {
-      if( matchF1[3] == "AM" || matchF1[1] == 12 ) {
-        setfArr(matchF1[1]);
+      if (matchF1[3] == "AM" || matchF1[1] == 12) {
+        setfArr(parseInt(matchF1[1]));
       } else {
         setfArr(parseInt(matchF1[1]) + 12);
       }
@@ -95,50 +92,50 @@ function EditSchedule() {
     }
 
     if (matchM2) {
-      if( matchM2[3] == "AM"  || matchM2[1] == 12 ) {
-        setmDep(matchM2[1]);
+      if (matchM2[3] == "AM" || matchM2[1] == 12) {
+        setmDep(parseInt(matchM2[1]) + 1);
       } else {
-        setmDep(parseInt(matchM2[1]) + 12);
+        setmDep(parseInt(matchM2[1]) + 13);
       }
     } else {
       setmDep("");
     }
 
     if (matchT2) {
-      if( matchT2[3] == "AM"  || matchT2[1] == 12 ) {
-        settDep(matchT2[1]);
+      if (matchT2[3] == "AM" || matchT2[1] == 12) {
+        settDep(parseInt(matchT2[1]) + 1);
       } else {
-        settDep(parseInt(matchT2[1]) + 12);
+        settDep(parseInt(matchT2[1]) + 13);
       }
     } else {
       settDep("");
     }
 
     if (matchW2) {
-      if( matchW2[3] == "AM"  || matchW2[1] == 12 ) {
-        setwDep(matchW2[1]);
+      if (matchW2[3] == "AM" || matchW2[1] == 12) {
+        setwDep(parseInt(matchW2[1]) + 1);
       } else {
-        setwDep(parseInt(matchW2[1]) + 12);
+        setwDep(parseInt(matchW2[1]) + 13);
       }
     } else {
       setwDep("");
     }
 
     if (matchR2) {
-      if( matchR2[3] == "AM"  || matchR2[1] == 12 ) {
-        setrDep(matchR2[1]);
+      if (matchR2[3] == "AM" || matchR2[1] == 12) {
+        setrDep(parseInt(matchR2[1]) + 1);
       } else {
-        setrDep(parseInt(matchR2[1]) + 12);
+        setrDep(parseInt(matchR2[1]) + 13);
       }
     } else {
       setrDep("");
     }
 
     if (matchF2) {
-      if( matchF2[3] == "AM"  || matchF2[1] == 12 ) {
-        setfDep(matchF2[1]);
+      if (matchF2[3] == "AM" || matchF2[1] == 12) {
+        setfDep(parseInt(matchF2[1]) + 1);
       } else {
-        setfDep(parseInt(matchF2[1]) + 12);
+        setfDep(parseInt(matchF2[1]) + 13);
       }
     } else {
       setfDep("");
@@ -336,6 +333,68 @@ function EditSchedule() {
     return;
   };
 
+  const [id, setId] = useState("");
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchData = () => {
+    axios
+      .get(`http://localhost:8081/user/getSched/${id}`)
+      .then((response) => {
+        const [
+          mon_A,
+          mon_D,
+          tue_A,
+          tue_D,
+          wed_A,
+          wed_D,
+          thu_A,
+          thu_D,
+          fri_A,
+          fri_D,
+          Pmon_A,
+          Pmon_D,
+          Ptue_A,
+          Ptue_D,
+          Pwed_A,
+          Pwed_D,
+          Pthu_A,
+          Pthu_D,
+          Pfri_A,
+          Pfri_D,
+        ] = response.data;
+
+        setmArr(mon_A);
+        settArr(tue_A);
+        setwArr(wed_A);
+        setrArr(thu_A);
+        setfArr(fri_A);
+
+        setmDep(mon_D);
+        settDep(tue_D);
+        setwDep(wed_D);
+        setrDep(thu_D);
+        setfDep(fri_D);
+
+        setPM1(Pmon_A);
+        setPT1(Ptue_A);
+        setPW1(Pwed_A);
+        setPR1(Pthu_A);
+        setPF1(Pfri_A);
+
+        setPM2(Pmon_D);
+        setPT2(Ptue_D);
+        setPW2(Pwed_D);
+        setPR2(Pthu_D);
+        setPF2(Pfri_D);
+
+        setError(null);
+      })
+      .catch((error) => {
+        setError(error.response ? error.response.data : error.message);
+      });
+  };
+
   return (
     <div>
       <h1>Edit Schedule</h1>
@@ -359,6 +418,27 @@ function EditSchedule() {
                     </form>
         */
         <div>
+          <label htmlFor="idInput">Enter ID:</label>
+          <input
+            type="text"
+            id="idInput"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+          <button onClick={fetchData}>Fetch Data</button>
+
+          <h2>Mon_A: {mArr}</h2>
+          <h2>Mon_D: {mDep}</h2>
+          <h2>Tue_A: {tArr}</h2>
+          <h2>Tue_D: {tDep}</h2>
+
+          {error && (
+            <div>
+              <h2>Error:</h2>
+              <pre>{JSON.stringify(error, null, 2)}</pre>
+            </div>
+          )}
+
           <select
             id="currentInput"
             value={selectedInput}
@@ -380,38 +460,110 @@ function EditSchedule() {
                 value={schedule_input}
                 onChange={(e) => setSchedule_input(e.target.value)}
               />
-              <br/>
-              <button onClick = {() => calculateSched(schedule_input)}>Set</button>
+              <br />
+              <button onClick={() => calculateSched(schedule_input)}>
+                Set
+              </button>
               <h3>Monday</h3>
-              <p>Arrival: {mArr > 12 ? mArr - 12 + " PM " : mArr == 12 ? mArr + " PM " : mArr + " AM "} 
-                 Departure: {mDep > 12 ? mDep - 12 + " PM " : mDep == 12 ? mDep + " PM " : mDep + " AM "}</p>
-              <br/>
+              <p>
+                Arrival:{" "}
+                {mArr > 12
+                  ? mArr - 12 + " PM "
+                  : mArr == 12
+                  ? mArr + " PM "
+                  : mArr + " AM "}
+                Departure:{" "}
+                {mDep > 12
+                  ? mDep - 12 + " PM "
+                  : mDep == 12
+                  ? mDep + " PM "
+                  : mDep + " AM "}
+              </p>
+              <br />
               <h3>Tuesday</h3>
-              <p>Arrival: {tArr > 12 ? tArr - 12 + " PM " : tArr == 12 ? tArr + " PM " : tArr + " AM "} 
-                 Departure: {tDep > 12 ? tDep - 12 + " PM " : tDep == 12 ? tDep + " PM " : tDep + " AM "}</p>
-              <br/>
+              <p>
+                Arrival:{" "}
+                {tArr > 12
+                  ? tArr - 12 + " PM "
+                  : tArr == 12
+                  ? tArr + " PM "
+                  : tArr + " AM "}
+                Departure:{" "}
+                {tDep > 12
+                  ? tDep - 12 + " PM "
+                  : tDep == 12
+                  ? tDep + " PM "
+                  : tDep + " AM "}
+              </p>
+              <br />
               <h3>Wednesday</h3>
-              <p>Arrival: {wArr > 12 ? wArr - 12 + " PM " : wArr == 12 ? wArr + " PM " : wArr + " AM "} 
-                 Departure: {wDep > 12 ? wDep - 12 + " PM " : wDep == 12 ? wDep + " PM " : wDep + " AM "}</p>
-              <br/>
+              <p>
+                Arrival:{" "}
+                {wArr > 12
+                  ? wArr - 12 + " PM "
+                  : wArr == 12
+                  ? wArr + " PM "
+                  : wArr + " AM "}
+                Departure:{" "}
+                {wDep > 12
+                  ? wDep - 12 + " PM "
+                  : wDep == 12
+                  ? wDep + " PM "
+                  : wDep + " AM "}
+              </p>
+              <br />
               <h3>Thursday</h3>
-              <p>Arrival: {rArr > 12 ? rArr - 12 + " PM " : rArr == 12 ? rArr + " PM " : rArr + " AM "} 
-                 Departure: {rDep > 12 ? rDep - 12 + " PM " : rDep == 12 ? rDep + " PM " : rDep + " AM "}</p>
-              <br/>
+              <p>
+                Arrival:{" "}
+                {rArr > 12
+                  ? rArr - 12 + " PM "
+                  : rArr == 12
+                  ? rArr + " PM "
+                  : rArr + " AM "}
+                Departure:{" "}
+                {rDep > 12
+                  ? rDep - 12 + " PM "
+                  : rDep == 12
+                  ? rDep + " PM "
+                  : rDep + " AM "}
+              </p>
+              <br />
               <h3>Friday</h3>
-              <p>Arrival: {fArr > 12 ? fArr - 12 + " PM " : fArr == 12 ? fArr + " PM " : fArr + " AM "} 
-                 Departure: {fDep > 12 ? fDep - 12 + " PM " : fDep == 12 ? fDep + " PM " : fDep + " AM "}</p>
-              <br/>
+              <p>
+                Arrival:{" "}
+                {fArr > 12
+                  ? fArr - 12 + " PM "
+                  : fArr == 12
+                  ? fArr + " PM "
+                  : fArr + " AM "}
+                Departure:{" "}
+                {fDep > 12
+                  ? fDep - 12 + " PM "
+                  : fDep == 12
+                  ? fDep + " PM "
+                  : fDep + " AM "}
+              </p>
+              <br />
             </div>
           ) : (
             <div>
               <h2>Monday</h2>
               <h2>
-                Arrival: {mArr > 12 ? mArr - 12 + " PM " : mArr == 12 ? mArr + " PM " : mArr + " AM "}
+                Arrival:{" "}
+                {mArr > 12
+                  ? mArr - 12 + " PM "
+                  : mArr == 12
+                  ? mArr + " PM "
+                  : mArr + " AM "}
                 <button onClick={mAUp}>+</button>
                 <button onClick={mADw}>-</button>
                 <br />
-                Departure: {mDep > 12 ? mDep - 12 + " PM " : mDep == 12 ? mDep + " PM " : mDep + " AM "}
+                Departure:{" "}
+                {mDep > 12
+                  ? mDep - 12 + " PM "
+                  : mDep == 12
+                  ? mDep + " PM "
+                  : mDep + " AM "}
                 <button onClick={mDUp}>+</button>
                 <button onClick={mDDw}>-</button>
               </h2>
@@ -419,11 +571,21 @@ function EditSchedule() {
 
               <h2>Tuesday</h2>
               <h2>
-                Arrival: {tArr > 12 ? tArr - 12 + " PM " : tArr == 12 ? tArr + " PM " : tArr + " AM "}
+                Arrival:{" "}
+                {tArr > 12
+                  ? tArr - 12 + " PM "
+                  : tArr == 12
+                  ? tArr + " PM "
+                  : tArr + " AM "}
                 <button onClick={tAUp}>+</button>
                 <button onClick={tADw}>-</button>
                 <br />
-                Departure: {tDep > 12 ? tDep - 12 + " PM " : tDep == 12 ? tDep + " PM " : tDep + " AM "}
+                Departure:{" "}
+                {tDep > 12
+                  ? tDep - 12 + " PM "
+                  : tDep == 12
+                  ? tDep + " PM "
+                  : tDep + " AM "}
                 <button onClick={tDUp}>+</button>
                 <button onClick={tDDw}>-</button>
               </h2>
@@ -431,11 +593,21 @@ function EditSchedule() {
 
               <h2>Wednesday</h2>
               <h2>
-                Arrival: {wArr > 12 ? wArr - 12 + " PM " : wArr == 12 ? wArr + " PM " : wArr + " AM "}
+                Arrival:{" "}
+                {wArr > 12
+                  ? wArr - 12 + " PM "
+                  : wArr == 12
+                  ? wArr + " PM "
+                  : wArr + " AM "}
                 <button onClick={wAUp}>+</button>
                 <button onClick={wADw}>-</button>
                 <br />
-                Departure: {wDep > 12 ? wDep - 12 + " PM " : wDep == 12 ? wDep + " PM " : wDep + " AM "}
+                Departure:{" "}
+                {wDep > 12
+                  ? wDep - 12 + " PM "
+                  : wDep == 12
+                  ? wDep + " PM "
+                  : wDep + " AM "}
                 <button onClick={wDUp}>+</button>
                 <button onClick={wDDw}>-</button>
               </h2>
@@ -443,11 +615,21 @@ function EditSchedule() {
 
               <h2>Thursday</h2>
               <h2>
-                Arrival: {rArr > 12 ? rArr - 12 + " PM " : rArr == 12 ? rArr + " PM " : rArr + " AM "}
+                Arrival:{" "}
+                {rArr > 12
+                  ? rArr - 12 + " PM "
+                  : rArr == 12
+                  ? rArr + " PM "
+                  : rArr + " AM "}
                 <button onClick={rAUp}>+</button>
                 <button onClick={rADw}>-</button>
                 <br />
-                Departure: {rDep > 12 ? rDep - 12 + " PM " : rDep == 12 ? rDep + " PM " : rDep + " AM "}
+                Departure:{" "}
+                {rDep > 12
+                  ? rDep - 12 + " PM "
+                  : rDep == 12
+                  ? rDep + " PM "
+                  : rDep + " AM "}
                 <button onClick={rDUp}>+</button>
                 <button onClick={rDDw}>-</button>
               </h2>
@@ -455,11 +637,21 @@ function EditSchedule() {
 
               <h2>Friday</h2>
               <h2>
-                Arrival: {fArr > 12 ? fArr - 12 + " PM " : fArr == 12 ? fArr + "PM" : fArr + " AM "}
+                Arrival:{" "}
+                {fArr > 12
+                  ? fArr - 12 + " PM "
+                  : fArr == 12
+                  ? fArr + "PM"
+                  : fArr + " AM "}
                 <button onClick={fAUp}>+</button>
                 <button onClick={fADw}>-</button>
                 <br />
-                Departure: {fDep > 12 ? fDep - 12 + " PM " : fDep == 12 ? fDep + "PM" : fDep + " AM "}
+                Departure:{" "}
+                {fDep > 12
+                  ? fDep - 12 + " PM "
+                  : fDep == 12
+                  ? fDep + "PM"
+                  : fDep + " AM "}
                 <button onClick={fDUp}>+</button>
                 <button onClick={fDDw}>-</button>
               </h2>

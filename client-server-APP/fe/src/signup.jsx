@@ -72,20 +72,20 @@ const ClassScheduleInput = ({ onSignUpSuccess }) => {
 
 
     function calculateSched(i) {
-        const regexM1 = /(?:Monday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-        const regexT1 = /(?:Tuesday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-        const regexW1 = /(?:Wednesday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-        const regexR1 = /(?:Thursday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-        const regexF1 = /(?:Friday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
+        const regexM1 = /(?:Monday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/; //<======================= Separated Regex into three parts (first digits of time)(":" two minute digits)(AM or PM)
+        const regexT1 = /(?:Tuesday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
+        const regexW1 = /(?:Wednesday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
+        const regexR1 = /(?:Thursday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
+        const regexF1 = /(?:Friday).*?(\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
         const regexM2 =
-          /(?:Monday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Tuesday|Wednesday|Thursday|Friday|$)/;
+          /(?:Monday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Tuesday|Wednesday|Thursday|Friday|$)/;
         const regexT2 =
-          /(?:Tuesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Wednesday|Thursday|Friday|$)/;
+          /(?:Tuesday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Wednesday|Thursday|Friday|$)/;
         const regexW2 =
-          /(?:Wednesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Thursday|Friday|$)/;
+          /(?:Wednesday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Thursday|Friday|$)/;
         const regexR2 =
-          /(?:Thursday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Friday|$)/;
-        const regexF2 = /(?:Friday .*?) .* - (\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
+          /(?:Thursday .*?) - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm]) - ([\w\d\s]+?)(Friday|$)/;
+        const regexF2 = /(?:Friday .*?) .* - (\b\d{1,2}\b)(:\d{2}\s)([APap][Mm])/;
     
         const matchM1 = regexM1.exec(i);
         const matchT1 = regexT1.exec(i);
@@ -99,61 +99,101 @@ const ClassScheduleInput = ({ onSignUpSuccess }) => {
         const matchF2 = regexF2.exec(i);
     
         if (matchM1) {
-          setM1(matchM1[1]);
+          if (matchM1[3] == "AM" || matchM1[1] == 12) { // <=========================================== Checks if time is "AM" or "PM" and sets value accordingly. 2PM = 14 or 10AM = 10
+            setM1(parseInt(matchM1[1]));
+          } else {
+            setM1(parseInt(matchM1[1]) + 12);
+          }
         } else {
           setM1("");
         }
     
         if (matchT1) {
-          setT1(matchT1[1]);
+          if (matchT1[3] == "AM" || matchT1[1] == 12) {
+            setT1(parseInt(matchT1[1]));
+          } else {
+            setT1(parseInt(matchT1[1]) + 12);
+          }
         } else {
           setT1("");
         }
     
         if (matchW1) {
-          setW1(matchW1[1]);
+          if (matchW1[3] == "AM" || matchW1[1] == 12) {
+            setW1(parseInt(matchW1[1]));
+          } else {
+            setW1(parseInt(matchW1[1]) + 12);
+          }
         } else {
           setW1("");
         }
     
         if (matchR1) {
-          setR1(matchR1[1]);
+          if (matchR1[3] == "AM" || matchR1[1] == 12) {
+            setR1(parseInt(matchR1[1]));
+          } else {
+            setR1(parseInt(matchR1[1]) + 12);
+          }
         } else {
           setR1("");
         }
     
         if (matchF1) {
-          setF1(matchF1[1]);
+          if (matchF1[3] == "AM" || matchF1[1] == 12) {
+            setF1(parseInt(matchF1[1]));
+          } else {
+            setF1(parseInt(matchF1[1]) + 12);
+          }
         } else {
           setF1("");
         }
     
         if (matchM2) {
-          setM2(matchM2[1]);
+          if (matchM2[3] == "AM" || matchM2[1] == 12) {
+            setM2(parseInt(matchM2[1]) + 1); // <========================== Adds an extra hour to the first value of time to round up. i.e. 9:50AM = 9 + 1 = 10AM || 8:50PM = 20 + 1 = 21 = 9PM
+          } else {
+            setM2(parseInt(matchM2[1]) + 13);
+          }
         } else {
           setM2("");
         }
     
         if (matchT2) {
-          setT2(matchT2[1]);
+          if (matchT2[3] == "AM" || matchT2[1] == 12) {
+            setT2(parseInt(matchT2[1]) + 1);
+          } else {
+            setT2(parseInt(matchT2[1]) + 13);
+          }
         } else {
           setT2("");
         }
     
         if (matchW2) {
-          setW2(matchW2[1]);
+          if (matchW2[3] == "AM" || matchW2[1] == 12) {
+            setW2(parseInt(matchW2[1]) + 1);
+          } else {
+            setW2(parseInt(matchW2[1]) + 13);
+          }
         } else {
           setW2("");
         }
     
         if (matchR2) {
-          setR2(matchR2[1]);
+          if (matchR2[3] == "AM" || matchR2[1] == 12) {
+            setR2(parseInt(matchR2[1]) + 1);
+          } else {
+            setR2(parseInt(matchR2[1]) + 13);
+          }
         } else {
           setR2("");
         }
     
         if (matchF2) {
-          setF2(matchF2[1]);
+          if (matchF2[3] == "AM" || matchF2[1] == 12) {
+            setF2(parseInt(matchF2[1]) + 1);
+          } else {
+            setF2(parseInt(matchF2[1]) + 13);
+          }
         } else {
           setF2("");
         }
@@ -224,11 +264,36 @@ const ClassScheduleInput = ({ onSignUpSuccess }) => {
                 <p>Account Type: {selectedChoice}</p>
                 <br></br>
                 <h3>Ride Schedule</h3>
-                <p>Monday Arrival: {m1} Departure: {m2}</p>
-                <p>Tuesday Arrival: {t1} Departure: {t2}</p>
-                <p>Wednesday Arrival: {w1} Departure: {w2}</p>
-                <p>Thursday Arrival: {r1} Departure: {r2}</p>
-                <p>Friday Arrival: {f1} Departure: {f2}</p>
+            <p>
+              Monday Arrival:{" "}
+              {m1 > 12 ? m1 - 12 + " PM " : m1 == 12 ? m1 + " PM " : m1 + " AM "}{" "/* All of this helps display the integer times as formatted times i.e. 18 = 6 PM*/}
+              Departure:{" "}
+              {m2 > 12 ? m2 - 12 + " PM " : m2 == 12 ? m2 + " PM " : m2 + " AM "}
+            </p>
+            <p>
+              Tuesday Arrival:{" "}
+              {t1 > 12 ? t1 - 12 + " PM " : t1 == 12 ? t1 + " PM " : t1 + " AM "}{" "}
+              Departure:{" "}
+              {t2 > 12 ? t2 - 12 + " PM " : t2 == 12 ? t2 + " PM " : t2 + " AM "}
+            </p>
+            <p>
+              Wednesday Arrival:{" "}
+              {w1 > 12 ? w1 - 12 + " PM " : w1 == 12 ? w1 + " PM " : w1 + " AM "}{" "}
+              Departure:{" "}
+              {w2 > 12 ? w2 - 12 + " PM " : w2 == 12 ? w2 + " PM " : w2 + " AM "}
+            </p>
+            <p>
+              Thursday Arrival:{" "}
+              {r1 > 12 ? r1 - 12 + " PM " : r1 == 12 ? r1 + " PM " : r1 + " AM "}{" "}
+              Departure:{" "}
+              {r2 > 12 ? r2 - 12 + " PM " : r2 == 12 ? r2 + " PM " : r2 + " AM "}
+            </p>
+            <p>
+              Friday Arrival:{" "}
+              {f1 > 12 ? f1 - 12 + " PM " : f1 == 12 ? f1 + " PM " : f1 + " AM "}{" "}
+              Departure:{" "}
+              {f2 > 12 ? f2 - 12 + " PM " : f2 == 12 ? f2 + " PM " : f2 + " AM "}
+            </p>
             </div>
             <div>
                 <button onClick={handleSubmit} type="submit">Sign Up</button>

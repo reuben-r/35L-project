@@ -77,6 +77,10 @@ const DistanceCalculator = () => {
                   `Request to ${label} on ${selectedDay} submitted`,
                 );
                 // Send to Backend
+                // should get driver id before request
+                axios.post("http://localhost:8081/trip/create", {
+                  riderId: 1, // should be replaced
+                })
               } else {
                 setSelectedDay(null);
                 setSelectedOption("arrival");

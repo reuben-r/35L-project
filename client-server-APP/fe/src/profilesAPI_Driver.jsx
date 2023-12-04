@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./signup.css";
 
 const DistanceCalculator = () => {
@@ -6,9 +7,11 @@ const DistanceCalculator = () => {
   const place2 = "90096";
   const place3 = "90071";
   const [map, setMap] = useState(null);
+  const [books, setBooks] = useState([]);
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedOption, setSelectedOption] = useState("arrival");
   const [requestStatus, setRequestStatus] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -21,6 +24,31 @@ const DistanceCalculator = () => {
     window.initMap = () => {
       initMap();
     };
+
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    setUserInfo(userInfo);
+    console.log(userInfo)
+    if (userInfo.type !== "Driver") {
+      return;
+    }
+
+    // get current rider request to this driver
+    axios
+      .post("http://localhost:8081/trip/books", {
+        driverID: userInfo.id,
+      })
+      .then((response) => {
+        if (!(response && response.data && response.data.status === "success")) {
+          return;
+        }
+
+        setBooks(response.data.books);
+
+        console.log(response.data.books)
+      })
+      .catch((error) => {
+        console.error(error.response ? error.response.data : error.message);
+      });
 
     return () => {
       document.head.removeChild(script);
@@ -70,7 +98,7 @@ const DistanceCalculator = () => {
               const shouldRequestRide = window.confirm(
                 `Do you want to book a ${
                   selectedOption === "arrival" ? "ride to" : "ride from"
-                } ${label} on ${selectedDay}?`,
+                } ${label} on ${selectedDay}?`
               );
               if (shouldRequestRide) {
                 setRequestStatus(`Ride to ${label} on ${selectedDay} booked`);

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Signup from "./signup";
@@ -10,9 +10,17 @@ import Signin from "./signin";
 import Tutorial from "./tutorial";
 import Profiles_Driver from "./profilesAPI_Driver";
 import Profiles_Rider from "./profilesAPI_Rider";
-import Test from "./test";
+import Test from "./test"
 
 function App() {
+      const [showMenu, setShowMenu] = useState(false);
+    const history = useHistory();
+
+    const handleSignUpSuccess = () => {
+        
+        setShowMenu(true);
+            
+    };
   return (
     <div>
       <Router>
@@ -25,67 +33,71 @@ function App() {
           />
           {/* Header */}
           <div className="header">
-            <h1>Carpoolers</h1>
+            <h1>UCLA Carpool Connect</h1>
           </div>
 
-          <div className="navBar">
-            <Link to="/Signin">
-              <button>Sign In</button>
-            </Link>
-            <Link to="/signup">
-              <button>Sign Up</button>
-            </Link>
-            <Link to="/tutorial">
-              <button>Schedule Import Tutorial</button>
-            </Link>
-            <Link to="/schedule">
-              <button>Schedule</button>
-            </Link>
-            <Link to="/editProfile">
-              <button>Edit Profile</button>
-            </Link>
-            <Link to="/profilesAPI_Rider">
-              <button>Request Rides</button>
-            </Link>
-            <Link to="/profilesAPI_Driver">
-              <button>Book Rides</button>
-            </Link>
-            <Link to="/test">
-              <button>Test</button>
-            </Link>
-          </div>
+                      {!showMenu && (
+                <div className="navBar">
+                    <Link to="/signin">
+                        <button>Sign In</button>
+                    </Link>
+                    <Link to="/signup">
+                        <button>Sign Up</button>
+                    </Link>
+                      <Link to="/tutorial">
+                        <button>Schedule Import Tutorial</button>
+                    </Link>
+                </div>
+            )}
 
-          <div className="LinkPage">
-            <Switch>
-              <Route exact path="/signup">
-                <Signup />
-              </Route>
-              <Route exact path="/signin">
-                <Signin />
-              </Route>
-              <Route exact path="/schedule">
-                <Schedule />
-              </Route>
-              <Route exact path="/editProfile">
-                <EditProfile />
-              </Route>
-              <Route exact path="/profilesAPI_Rider">
-                <Profiles_Rider />
-              </Route>
-              <Route exact path="/profilesAPI_Driver">
-                <Profiles_Driver />
-              </Route>
-              <Route exact path="/tutorial">
-                <Tutorial />
-              </Route>
-              <Route exact path="/test">
-                <Test />
-              </Route>
-            </Switch>
-          </div>
+            
+            {showMenu && (
+                <div className="navBar">
+                    <Link to="/schedule">
+                        <button>Schedule</button>
+                    </Link>
+                    <Link to="/editProfile">
+                        <button>Edit Profile</button>
+                    </Link>
+                    <Link to="/profilesAPI_Rider">
+                        <button>Request Rides</button>
+                    </Link>
+                    <Link to="/profilesAPI_Driver">
+                        <button>Book Rides</button>
+                    </Link>
+                </div>
+            )}
+
+            <div className="LinkPage">
+                <Switch>
+                    <Route exact path="/signup">
+                        <Signup onSignUpSuccess={handleSignUpSuccess} />
+                    </Route>
+                    <Route exact path="/signin">
+                        <Signin onSignUpSuccess={handleSignUpSuccess} />
+                    </Route>
+                    <Route exact path="/schedule">
+                        <Schedule />
+                    </Route>
+                    <Route exact path="/editProfile">
+                        <EditProfile />
+                    </Route>
+                    <Route exact path="/profilesAPI_Rider">
+                        <Profiles_Rider />
+                    </Route>
+                    <Route exact path="/profilesAPI_Driver">
+                        <Profiles_Driver />
+                    </Route>
+                    <Route exact path="/tutorial">
+                        <Tutorial />
+                    </Route>
+                    
+                    
+                </Switch>
+            </div>
         </>
-      </Router>
-    </div>
+    </Router>
+</div>
   );
 }
 

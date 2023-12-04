@@ -2,7 +2,7 @@
 
 2. Open the file named db.js using any editor
 
-3. Change the password of your localhost(for me is RAY19991121) and user name(for me is root) if necessary.
+3. Change the password of your localhost(for me is 19991121) and user name(for me is root) if necessary.
 
 4. Be sure to install: 
 	

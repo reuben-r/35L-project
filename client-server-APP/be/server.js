@@ -1,13 +1,14 @@
 const express = require('express');
 const cors = require('cors')
 const userRouter = require("./routers/user")
+const tripRouter = require("./routers/trip")
 const db = require("./config/db")
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use(express.static('35proj'))
+// app.use(express.static('35proj'))
 
 app.get('/', (re, res)=> {
     return res.json("from backend side");
@@ -32,7 +33,12 @@ db.connect(function(err) {
 
 // register user router
 app.use('/user', userRouter)
+app.use('/trip', tripRouter)
 
+
+// Need to add a form for the signup page
+// Then add event handler, such that submitting the form calls a function in backend
+// The function called in backend should do a sql insert
 
 app.post('/', (req, res) => {
     const {parcel} = req.body

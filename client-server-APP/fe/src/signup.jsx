@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import './signup.css'
-function ClassScheduleInput() {
+const ClassScheduleInput = ({ onSignUpSuccess }) => {
+
+    const history = useHistory();
     const [username_input, setUsername_input] = useState('');
     const [password_input, setPassword_input] = useState('');
     const [address_input, setAddress_input] = useState('');
@@ -63,6 +66,8 @@ function ClassScheduleInput() {
         }).then(res => {
             console.log(res)
         })
+        onSignUpSuccess(); 
+        history.push("/");
     }
 
 
@@ -72,91 +77,87 @@ function ClassScheduleInput() {
         const regexW1 = /(?:Wednesday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
         const regexR1 = /(?:Thursday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
         const regexF1 = /(?:Friday).*?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-        const regexM2 = /.* - ?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)(?: - .* Tuesday)/;
-        const regexT2 = /.* - ?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)(?: - .* Wednesday)/;
-        const regexW2 = /.* - ?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)(?: - .* Thursday)/;
-        const regexR2 = /.* - ?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)(?: - .* Friday)/;
-        const regexF2 = /.* - ?(\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
-
-       
+        const regexM2 =
+          /(?:Monday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Tuesday|Wednesday|Thursday|Friday|$)/;
+        const regexT2 =
+          /(?:Tuesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Wednesday|Thursday|Friday|$)/;
+        const regexW2 =
+          /(?:Wednesday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Thursday|Friday|$)/;
+        const regexR2 =
+          /(?:Thursday .*?) - (\b\d{1,2}:\d{2}\s[APap][Mm]\b) - ([\w\d\s]+?)(Friday|$)/;
+        const regexF2 = /(?:Friday .*?) .* - (\b\d{1,2}:\d{2}\s[APap][Mm]\b)/;
+    
         const matchM1 = regexM1.exec(i);
-        if (matchM1) {
-            setM1(matchM1[1]);
-        } else {
-            setM1('');
-        }
-
-        
         const matchT1 = regexT1.exec(i);
-        if (matchT1) {
-            setT1(matchT1[1]);
-        } else {
-            setT1('');
-        }
-
-       
         const matchW1 = regexW1.exec(i);
-        if (matchW1) {
-            setW1(matchW1[1]);
-        } else {
-            setW1('');
-        }
-
         const matchR1 = regexR1.exec(i);
-        if (matchR1) {
-            setR1(matchR1[1]);
-        } else {
-            setR1('');
-        }
-
-       
         const matchF1 = regexF1.exec(i);
-        if (matchF1) {
-            setF1(matchF1[1]);
-        } else {
-            setF1('');
-        }
-
-       
         const matchM2 = regexM2.exec(i);
-        if (matchM2) {
-            setM2(matchM2[1]);
-        } else {
-            setM2('');
-        }
-
-      
         const matchT2 = regexT2.exec(i);
-        if (matchT2) {
-            setT2(matchT2[1]);
-        } else {
-            setT2('');
-        }
-
-      
         const matchW2 = regexW2.exec(i);
-        if (matchW2) {
-            setW2(matchW2[1]);
-        } else {
-            setW2('');
-        }
-
-        
         const matchR2 = regexR2.exec(i);
-        if (matchR2) {
-            setR2(matchR2[1]);
-        } else {
-            setR2('');
-        }
-
-     
         const matchF2 = regexF2.exec(i);
-        if (matchF2) {
-            setF2(matchF2[1]);
+    
+        if (matchM1) {
+          setM1(matchM1[1]);
         } else {
-            setF2('');
+          setM1("");
         }
-    }
+    
+        if (matchT1) {
+          setT1(matchT1[1]);
+        } else {
+          setT1("");
+        }
+    
+        if (matchW1) {
+          setW1(matchW1[1]);
+        } else {
+          setW1("");
+        }
+    
+        if (matchR1) {
+          setR1(matchR1[1]);
+        } else {
+          setR1("");
+        }
+    
+        if (matchF1) {
+          setF1(matchF1[1]);
+        } else {
+          setF1("");
+        }
+    
+        if (matchM2) {
+          setM2(matchM2[1]);
+        } else {
+          setM2("");
+        }
+    
+        if (matchT2) {
+          setT2(matchT2[1]);
+        } else {
+          setT2("");
+        }
+    
+        if (matchW2) {
+          setW2(matchW2[1]);
+        } else {
+          setW2("");
+        }
+    
+        if (matchR2) {
+          setR2(matchR2[1]);
+        } else {
+          setR2("");
+        }
+    
+        if (matchF2) {
+          setF2(matchF2[1]);
+        } else {
+          setF2("");
+        }
+      }
 
     const choices = [
         { value: 'Driver', label: 'Driver' },

@@ -68,3 +68,17 @@ body {
   margin-bottom: 5px;
   margin-left: auto;
 }
+
+/* For ProfileView */
+.column {
+  width: auto;
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.bold-text {
+  font-weight: bold;
+  font-size: 1.15rem;
+  text-align: center;
+}

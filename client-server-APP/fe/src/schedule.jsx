@@ -65,7 +65,25 @@ function ClassScheduleInput() {
     });
   };
 
+    const [clickedCell, setClickedCell] = useState(null);
 
+    const handleButtonClick = (content) => {
+        const shouldSayHi = window.confirm(`Are you sure you want to cancel ${content}?`);
+        if (shouldSayHi) {
+            setClickedCell(content);
+        }
+    };
+
+    const renderCell = (content) => (
+        content ? (
+            <button onClick={() => handleButtonClick(content)}>
+                {content}
+            </button>
+        ) : (
+            <span>{content}</span>
+        )
+    );
+  
   const m8 = "Ride with Reuben to UCLA";
   const m9 = "";
   const m10 = "";
@@ -166,120 +184,125 @@ function ClassScheduleInput() {
 
 
       <h1>Schedule View Page</h1>
-      <table border="22">
-        <tr>
-          <td></td>
-          <th> Monday </th>
-          <th> Tuesday </th>
-          <th> Wednesday </th>
-          <th> Thursday </th>
-          <th> Friday </th>
-        </tr>
-        <tr>
-          <th>7:00-8:00</th>
-          <td>{m7}</td>
-          <td>{t7}</td>
-          <td>{w7}</td>
-          <td>{r7}</td>
-          <td>{f7}</td>
-        </tr>
-        <tr>
-          <th>8:00-9:00</th>
-          <td>{m8}</td>
-          <td>{t8}</td>
-          <td>{w8}</td>
-          <td>{r8}</td>
-          <td>{f8}</td>
-        </tr>
-        <tr>
-          <th>9:00-10:00</th>
-          <td>{m9}</td>
-          <td>{t9}</td>
-          <td>{w9}</td>
-          <td>{r9}</td>
-          <td>{f9}</td>
-        </tr>
-        <tr>
-          <th>10:00-11:00</th>
-          <td>{m10}</td>
-          <td>{t10}</td>
-          <td>{w10}</td>
-          <td>{r10}</td>
-          <td>{f10}</td>
-        </tr>
-        <tr>
-          <th>11:00-12:00</th>
-          <td>{m11}</td>
-          <td>{t11}</td>
-          <td>{w11}</td>
-          <td>{r11}</td>
-          <td>{f11}</td>
-        </tr>
-        <tr>
-          <th>12:00-1:00</th>
-          <td>{m12}</td>
-          <td>{t12}</td>
-          <td>{w12}</td>
-          <td>{r12}</td>
-          <td>{f12}</td>
-        </tr>
-        <tr>
-          <th>1:00-2:00</th>
-          <td>{m1}</td>
-          <td>{t1}</td>
-          <td>{w1}</td>
-          <td>{r1}</td>
-          <td>{f1}</td>
-        </tr>
-        <tr>
-          <th>2:00-3:00</th>
-          <td>{m2}</td>
-          <td>{t2}</td>
-          <td>{w2}</td>
-          <td>{r2}</td>
-          <td>{f2}</td>
-        </tr>
-        <tr>
-          <th>3:00-4:00</th>
-          <td>{m3}</td>
-          <td>{t3}</td>
-          <td>{w3}</td>
-          <td>{r3}</td>
-          <td>{f3}</td>
-        </tr>
-        <tr>
-          <th>4:00-5:00</th>
-          <td>{m4}</td>
-          <td>{t4}</td>
-          <td>{w4}</td>
-          <td>{r4}</td>
-          <td>{f4}</td>
-        </tr>
-        <tr>
-          <th>5:00-6:00</th>
-          <td>{m5}</td>
-          <td>{t5}</td>
-          <td>{w5}</td>
-          <td>{r5}</td>
-          <td>{f5}</td>
-        </tr>
-        <tr>
-          <th>6:00-7:00</th>
-          <td>{m6}</td>
-          <td>{t6}</td>
-          <td>{w6}</td>
-          <td>{r6}</td>
-          <td>{f6}</td>
-        </tr>
-        <tr>
-          <th>7:00-8:00</th>
-          <td>{m8p}</td>
-          <td>{t8p}</td>
-          <td>{w8p}</td>
-          <td>{r8p}</td>
-          <td>{f8p}</td>
-        </tr>
-      </table>
+       <table border="22">
+     <thead>
+         <tr>
+             <td></td>
+             <th> Monday </th>
+             <th> Tuesday </th>
+             <th> Wednesday </th>
+             <th> Thursday </th>
+             <th> Friday </th>
+         </tr>
+     </thead>
+     <tbody>
+         <tr>
+             <th>7:00-8:00</th>
+             <td>{renderCell(m7)}</td>
+             <td>{renderCell(t7)}</td>
+             <td>{renderCell(w7)}</td>
+             <td>{renderCell(r7)}</td>
+             <td>{renderCell(f7)}</td>
+         </tr>
+         <tr>
+             <th>8:00-9:00</th>
+             <td>{renderCell(m8)}</td>
+             <td>{renderCell(t8)}</td>
+             <td>{renderCell(w8)}</td>
+             <td>{renderCell(r8)}</td>
+             <td>{renderCell(f8)}</td>
+         </tr>
+         <tr>
+             <th>9:00-10:00</th>
+             <td>{renderCell(m9)}</td>
+             <td>{renderCell(t9)}</td>
+             <td>{renderCell(w9)}</td>
+             <td>{renderCell(r9)}</td>
+             <td>{renderCell(f9)}</td>
+         </tr>
+         <tr>
+             <th>10:00-11:00</th>
+             <td>{renderCell(m10)}</td>
+             <td>{renderCell(t10)}</td>
+             <td>{renderCell(w10)}</td>
+             <td>{renderCell(r10)}</td>
+             <td>{renderCell(f10)}</td>
+         </tr>
+         <tr>
+             <th>11:00-12:00</th>
+             <td>{renderCell(m11)}</td>
+             <td>{renderCell(t11)}</td>
+             <td>{renderCell(w11)}</td>
+             <td>{renderCell(r11)}</td>
+             <td>{renderCell(f11)}</td>
+         </tr>
+         <tr>
+             <th>12:00-1:00</th>
+             <td>{renderCell(m12)}</td>
+             <td>{renderCell(t12)}</td>
+             <td>{renderCell(w12)}</td>
+             <td>{renderCell(r12)}</td>
+             <td>{renderCell(f12)}</td>
+         </tr>
+         <tr>
+             <th>1:00-2:00</th>
+             <td>{renderCell(m1)}</td>
+             <td>{renderCell(t1)}</td>
+             <td>{renderCell(w1)}</td>
+             <td>{renderCell(r1)}</td>
+             <td>{renderCell(f1)}</td>
+         </tr>
+         <tr>
+             <th>2:00-3:00</th>
+             <td>{renderCell(m2)}</td>
+             <td>{renderCell(t2)}</td>
+             <td>{renderCell(w2)}</td>
+             <td>{renderCell(r2)}</td>
+             <td>{renderCell(f2)}</td>
+         </tr>
+         <tr>
+             <th>3:00-4:00</th>
+             <td>{renderCell(m3)}</td>
+             <td>{renderCell(t3)}</td>
+             <td>{renderCell(w3)}</td>
+             <td>{renderCell(r3)}</td>
+             <td>{renderCell(f3)}</td>
+         </tr>
+         <tr>
+             <th>4:00-5:00</th>
+             <td>{renderCell(m4)}</td>
+             <td>{renderCell(t4)}</td>
+             <td>{renderCell(w4)}</td>
+             <td>{renderCell(r4)}</td>
+             <td>{renderCell(f4)}</td>
+         </tr>
+         <tr>
+             <th>5:00-6:00</th>
+             <td>{renderCell(m5)}</td>
+             <td>{renderCell(t5)}</td>
+             <td>{renderCell(w5)}</td>
+             <td>{renderCell(r5)}</td>
+             <td>{renderCell(f5)}</td>
+         </tr>
+         <tr>
+             <th>6:00-7:00</th>
+             <td>{renderCell(m6)}</td>
+             <td>{renderCell(t6)}</td>
+             <td>{renderCell(w6)}</td>
+             <td>{renderCell(r6)}</td>
+             <td>{renderCell(f6)}</td>
+         </tr>
+         <tr>
+             <th>7:00-8:00</th>
+             <td>{renderCell(m8p)}</td>
+             <td>{renderCell(t8p)}</td>
+             <td>{renderCell(w8p)}</td>
+             <td>{renderCell(r8p)}</td>
+             <td>{renderCell(f8p)}</td>
+         </tr>
+     </tbody>
+ </table>
+ {clickedCell && <div>{clickedCell} Canceled</div>}
     </div>
   );
 }

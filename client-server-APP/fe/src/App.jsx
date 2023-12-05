@@ -56,8 +56,8 @@ function App() {
                     <Link to="/schedule">
                         <button>Schedule</button>
                     </Link>
-                    <Link to="/editProfile">
-                        <button>Edit Profile</button>
+                    <Link to="/Profile">
+                        <button>Profile</button>
                     </Link>
                     <Link to="/profilesAPI_Rider">
                         <button>Request Rides</button>
@@ -79,8 +79,8 @@ function App() {
                     <Route exact path="/schedule">
                         <Schedule />
                     </Route>
-                    <Route exact path="/editProfile">
-                        <EditProfile />
+                    <Route exact path="/Profile">
+                        <Profile />
                     </Route>
                     <Route exact path="/profilesAPI_Rider">
                         <Profiles_Rider />

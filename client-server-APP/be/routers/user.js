@@ -224,28 +224,34 @@ module.exports = router
 
 
 
-// Retrieve all users within a timeslot
 // get users with schedule matching a specific time and column within a range
 router.get('/getUsersByTimeAndColumnWithRange', (req, res) => {
   const timeParameter = req.query.timeParameter;
   const columnName = req.query.columnName;
+  const rangeParameter = req.query.rangeParameter; // 'to' or 'from'
 
-  console.log('Received timeParameter:', timeParameter);
-  console.log('Received columnName:', columnName);
-
-  if (!timeParameter || !columnName) {
+  if (!timeParameter || !columnName || !rangeParameter) {
       return res.status(400).json({
-          msg: "timeParameter and columnName are required",
+          msg: "timeParameter, columnName, and rangeParameter are required",
           status: "fail"
       });
   }
 
-  // Assuming your time column is a numerical type (replace 'your_table' with your actual table name)
-  const query = `SELECT * FROM user WHERE ${columnName} BETWEEN ? - 60 AND ? + 60 LIMIT 25`;
+  let operator;
+  if (rangeParameter === 'to') {
+      operator = '<=';
+  } else if (rangeParameter === 'from') {
+      operator = '>=';
+  } else {
+      return res.status(400).json({
+          msg: "Invalid rangeParameter value. Use 'to' or 'from'",
+          status: "fail"
+      });
+  }
 
-  console.log('Constructed query:', query);
+  const query = `SELECT * FROM user WHERE ${columnName} ${operator} ? AND ${columnName} BETWEEN ? - 60 AND ? + 60 LIMIT 25`;
 
-  db.query(query, [parseInt(timeParameter), parseInt(timeParameter)], (err, result) => {
+  db.query(query, [timeParameter, timeParameter, timeParameter], (err, result) => {
       if (err) {
           console.error('Database query error: ' + err.stack);
           res.status(500).json({ error: 'Internal Server Error' });

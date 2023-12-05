@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 
 function TestPage() {
@@ -37,10 +37,11 @@ function TestPage() {
     // GET USERS BY TIME AND COLUMN WITH RANGE
     const [timeParameter, setTimeParameter] = useState("");
     const [columnName, setColumnName] = useState("mon_A"); // Default column name, change as needed
+    const [rangeParameter, setRangeParameter] = useState("to"); // Default range parameter, change as needed
     const [usersByTimeAndColumn, setUsersByTimeAndColumn] = useState([]);
 
     const getUsersByTimeAndColumn = () => {
-        axios.get(`http://localhost:8081/user/getUsersByTimeAndColumnWithRange?timeParameter=${timeParameter}&columnName=${columnName}`)
+        axios.get(`http://localhost:8081/user/getUsersByTimeAndColumnWithRange?timeParameter=${timeParameter}&columnName=${columnName}&rangeParameter=${rangeParameter}`)
             .then(response => {
                 const data = response.data;
                 setUsersByTimeAndColumn(data);
@@ -100,6 +101,13 @@ function TestPage() {
                     value={columnName}
                     onChange={(e) => setColumnName(e.target.value)}
                 />
+                <label>
+                    Range Parameter:
+                    <select value={rangeParameter} onChange={(e) => setRangeParameter(e.target.value)}>
+                        <option value="to">To</option>
+                        <option value="from">From</option>
+                    </select>
+                </label>
                 <button onClick={getUsersByTimeAndColumn}>Get Users By Time and Column</button>
                 <div>
                     <table border="1">

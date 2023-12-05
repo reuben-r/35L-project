@@ -249,7 +249,7 @@ router.get('/getUsersByTimeAndColumnWithRange', (req, res) => {
       });
   }
 
-  const query = `SELECT * FROM user WHERE ${columnName} ${operator} ? AND ${columnName} BETWEEN ? - 60 AND ? + 60 LIMIT 25`;
+  const query = `SELECT * FROM user WHERE ${columnName} ${operator} ? AND ${columnName} BETWEEN ? - 1 AND ? + 1 LIMIT 25`;
 
   db.query(query, [timeParameter, timeParameter, timeParameter], (err, result) => {
       if (err) {

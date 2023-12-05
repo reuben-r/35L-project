@@ -172,7 +172,7 @@ router.post("/addRide",  (req, res) => {
 
 });
 
- //get a 0 or 1 when inputting a username and password
+ //get a true(failed login) or false(good login) when inputting a username and password
  router.post('/goodSign', (req, res) => {
     const data = req.body  
     const query = `SELECT * FROM user WHERE name = '${data.username}' AND password = '${data.password}'`;
@@ -192,6 +192,23 @@ router.post("/addRide",  (req, res) => {
   });
 
 
+  router.post('/updateUsername', (req, res) => {
+    const { clientId, newUsername } = req.body;
+  
+    const query = `UPDATE user SET name = '${newUsername}' WHERE id = '${clientId}'`;
+    
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Database query error: ' + err.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+  
+      res.json({ success: true });
+    });
+  });
+
+
 // this should be implemented after signIn logic completed
 // should get user id from session, current just get from query
 router.get("/info/:id", (req, res) => {
@@ -204,3 +221,39 @@ router.get("/info/:id", (req, res) => {
 })
 
 module.exports = router
+
+
+
+// Retrieve all users within a timeslot
+// get users with schedule matching a specific time and column within a range
+router.get('/getUsersByTimeAndColumnWithRange', (req, res) => {
+  const timeParameter = req.query.timeParameter;
+  const columnName = req.query.columnName;
+
+  console.log('Received timeParameter:', timeParameter);
+  console.log('Received columnName:', columnName);
+
+  if (!timeParameter || !columnName) {
+      return res.status(400).json({
+          msg: "timeParameter and columnName are required",
+          status: "fail"
+      });
+  }
+
+  // Assuming your time column is a numerical type (replace 'your_table' with your actual table name)
+  const query = `SELECT * FROM user WHERE ${columnName} BETWEEN ? - 60 AND ? + 60 LIMIT 25`;
+
+  console.log('Constructed query:', query);
+
+  db.query(query, [parseInt(timeParameter), parseInt(timeParameter)], (err, result) => {
+      if (err) {
+          console.error('Database query error: ' + err.stack);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+      }
+
+      // Return the result as a multi-dimensional array
+      const usersData = result.map(user => Object.values(user));
+      res.json(usersData);
+  });
+});

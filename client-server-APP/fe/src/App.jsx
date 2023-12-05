@@ -92,6 +92,9 @@ function App() {
                         <Tutorial />
                     </Route>
                     
+                    <Route exact path="/test">
+                        <Test />
+                    </Route>
                     
                 </Switch>
             </div>

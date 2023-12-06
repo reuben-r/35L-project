@@ -7,7 +7,7 @@ import {
   Switch,
 } from "react-router-dom";
 import axios from "axios";
-import IdHandlerComponent from "./idHandler";
+import { useId } from "./IdContext"; // Update the import path accordingly
 import "./signup.css";
 
 
@@ -38,8 +38,8 @@ const View = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios
@@ -226,8 +226,8 @@ const Username = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios
@@ -345,8 +345,8 @@ const Type = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios
@@ -759,8 +759,8 @@ const Schedule = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios
@@ -1101,8 +1101,8 @@ const Password = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios
@@ -1137,7 +1137,7 @@ const Password = () => {
     axios.post("http://localhost:8081/user/updateUserInfo", {   //<======================================= UnCOMMENT and replace with correct axios function
             ident: id,
             username: username1,
-            password: password1,
+            password: tempPass2,
             address: address1,
             type: type1,
             mon_A: mArr,
@@ -1192,15 +1192,7 @@ const Password = () => {
           <br />
           {tempPass1 === tempPass2 && tempPass1 != "" ? (
             <Link to="/Profile/">
-              <button
-                onClick={() => {
-                  setPassword1(document.getElementById("tempPass2").value);
-                  handleChangeAll;
-                  // <=============================================================== UnCOMMENT and change button to correct format if needed. Also add going back to View Profile when clicked
-                }}
-              >
-                Change
-              </button>
+              <button onClick={handleChangeAll}>Submit Changes</button>
             </Link>
           ) : null}
         </div>
@@ -1240,8 +1232,8 @@ const Address = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  const idHandler = IdHandlerComponent();
-  const id = idHandler.getClientID();
+  const { getClientID } = useId(); // Use the useId hook to get the clientID
+  const id = getClientID();
 
   const fetchAllData = () => {
     axios

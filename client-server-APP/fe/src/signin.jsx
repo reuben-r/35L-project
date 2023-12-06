@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import IdHandlerComponent from "./idHandler";  // Update the import path accordingly
+import { useId } from "./IdContext"; // Update the import path accordingly
 import "./signup.css";
 
 const SigninComponent = ({ onSignUpSuccess }) => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
-  const { setClientID, getClientID } = IdHandlerComponent();
+  const { setClientID, getClientID } = useId(); // Use the useId hook
 
   const [retrieved_ID, setRetrievedID] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
@@ -40,14 +40,11 @@ const SigninComponent = ({ onSignUpSuccess }) => {
           onSignUpSuccess(); 
           history.push("/");
         }
-
       })
       .catch(error => {
         console.error(error.response ? error.response.data : error.message);
       });
   };
-
-  
 
   useEffect(() => {
     if (input1) {

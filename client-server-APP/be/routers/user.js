@@ -353,6 +353,8 @@ router.post('/updateUserInfo', (req, res) => {
     WHERE id = ?
   `;
 
+  console.log(query)
+  console.log(ident)
   // Execute the query
   db.query(query, [username, password, address, type, mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D, ident], (err, result) => {
     if (err) {

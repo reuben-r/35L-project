@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import './signup.css'
+import { useId } from "./IdContext"; // Update the import path accordingly
+
 const ClassScheduleInput = ({ onSignUpSuccess }) => {
 
     const history = useHistory();
@@ -21,31 +23,24 @@ const ClassScheduleInput = ({ onSignUpSuccess }) => {
     const [r2, setR2] = useState("");
     const [f2, setF2] = useState("");
 
+    const { setClientID, getClientID } = useId(); // Use the useId hook
+
+    const nameToID = () => {
+      return axios.get(`http://localhost:8081/user/nameToID/${username_input}`)
+        .then(response => {
+          const [retrievedID] = response.data;
+          setClientID(retrievedID); // Set the clientID using the context
+        })
+        .catch(error => {
+          console.error(error.response ? error.response.data : error.message);
+        });
+    };
+
     useEffect(() => {
         calculateSched(schedule_input);
     }, [schedule_input]);
 
-
-    //This function will add the specified ride to the rider
-    //The input must be a valid rider name, the day, and the arrival or departure
-    //The day must have the first 3 letters spelled correctly, day and arr/dep are case insensitive, rider is case sensitive
-    const [rider_input, setRider_input] = useState('');
-    const [day_input, setDay_input] = useState('');
-    const [time_input, setTime_input] = useState('');
-    const [a_or_d, setA_or_D] = useState('');
-    const handleAddRide = () => {
-        axios.post("http://localhost:8081/user/addRide", {
-            rider: rider_input,
-            day: day_input,
-            time: time_input,
-            AorD: a_or_d
-        }).then(res => {
-            console.log(res)
-        })
-    }
-
     const handleSubmit = () => {
-
         calculateSched(schedule_input);
 
         axios.post("http://localhost:8081/user/create", {
@@ -64,10 +59,30 @@ const ClassScheduleInput = ({ onSignUpSuccess }) => {
             fri_A: f1, 
             fri_D: f2
         }).then(res => {
+            console.log(res);
+            nameToID(); // Move nameToID call here
+            onSignUpSuccess(); 
+            history.push("/");
+        });
+    }
+
+
+      //This function will add the specified ride to the rider
+    //The input must be a valid rider name, the day, and the arrival or departure
+    //The day must have the first 3 letters spelled correctly, day and arr/dep are case insensitive, rider is case sensitive
+    const [rider_input, setRider_input] = useState('');
+    const [day_input, setDay_input] = useState('');
+    const [time_input, setTime_input] = useState('');
+    const [a_or_d, setA_or_D] = useState('');
+    const handleAddRide = () => {
+        axios.post("http://localhost:8081/user/addRide", {
+            rider: rider_input,
+            day: day_input,
+            time: time_input,
+            AorD: a_or_d
+        }).then(res => {
             console.log(res)
         })
-        onSignUpSuccess(); 
-        history.push("/");
     }
 
 

@@ -1477,4 +1477,4 @@ const Profile = () => (
 
 );
 
-export default withRouter(Profile);
+export default Profile;

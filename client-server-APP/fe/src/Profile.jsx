@@ -1434,7 +1434,7 @@ const Profile = () => (
                 <Link to="/Profile/username">
                     <button>Edit Username</button>
                 </Link>
-                <Link to="/Profile/yype">
+                <Link to="/Profile/type">
                     <button>Change Profile Type</button>
                 </Link>
                 <Link to="/Profile/schedule">

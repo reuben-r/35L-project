@@ -263,3 +263,108 @@ router.get('/getUsersByTimeAndColumnWithRange', (req, res) => {
       res.json(usersData);
   });
 });
+
+
+
+// Retrieve all information for a user by userID
+router.get('/getUserInfo/:id', (req, res) => {
+  console.log("retrieve called")
+
+  const userId = req.params.id;
+
+  // Check if the userID is provided
+  if (!userId) {
+      return res.status(400).json({
+          msg: "userID is required",
+          status: "fail"
+      });
+  }
+
+  const query = `SELECT * FROM user WHERE id = ?`;
+
+  db.query(query, [userId], (err, result) => {
+      if (err) {
+          console.error('Database query error: ' + err.stack);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+      }
+
+      // Check if the user with the given ID exists
+      if (result.length === 0) {
+          res.status(404).json({ error: 'User not found' });
+          return;
+      }
+
+      // Return user information
+      const userData = result[0];
+      res.json(userData);
+  });
+});
+
+
+
+router.post('/updateUserInfo', (req, res) => {
+  console.log("update called")
+
+  const {
+    ident,
+    username,
+    password,
+    address,
+    type,
+    mon_A,
+    mon_D,
+    tue_A,
+    tue_D,
+    wed_A,
+    wed_D,
+    thu_A,
+    thu_D,
+    fri_A,
+    fri_D,
+  } = req.body;
+
+  // Check if the userID is provided
+  if (!ident) {
+    return res.status(400).json({
+      msg: "userID is required",
+      status: "fail"
+    });
+  }
+
+  // Construct the SQL query to update user information
+  const query = `
+    UPDATE user
+    SET 
+      name = ?,
+      password = ?,
+      address = ?,
+      type = ?,
+      mon_A = ?,
+      mon_D = ?,
+      tue_A = ?,
+      tue_D = ?,
+      wed_A = ?,
+      wed_D = ?,
+      thu_A = ?,
+      thu_D = ?,
+      fri_A = ?,
+      fri_D = ?
+    WHERE id = ?
+  `;
+
+  // Execute the query
+  db.query(query, [username, password, address, type, mon_A, mon_D, tue_A, tue_D, wed_A, wed_D, thu_A, thu_D, fri_A, fri_D, ident], (err, result) => {
+    if (err) {
+      console.error('Database query error: ' + err.stack);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Check if the user with the given ID exists
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json({ message: 'User information updated successfully' });
+  });
+});

@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 
 const IdHandlerComponent = () => {
-  const [clientID, setID] = useState("");
+  const [clientID, setID] = useState("4");
 
   const setClientID = (id) => {
     setID(id);
+    console.log(clientID)
   };
 
   const getClientID = () => {
+    console.log(clientID)
     return clientID;
   };
 

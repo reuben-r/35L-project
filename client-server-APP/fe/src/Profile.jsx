@@ -6,8 +6,10 @@ import {
   useHistory,
   Switch,
 } from "react-router-dom";
-
+import axios from "axios";
+import IdHandlerComponent from "./idHandler";
 import "./signup.css";
+
 
 const View = () => {
   //Replace with variables from server
@@ -36,45 +38,29 @@ const View = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
+
   const fetchAllData = () => {
-    //<====================================================================== UnCOMMENT and make sure variables work
     axios
-      .get(`http://localhost:8081/user/getAllData/${id}`)
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
       .then((response) => {
-        const [
-          name,
-          password,
-          address,
-          type,
-          mon_A,
-          mon_D,
-          tue_A,
-          tue_D,
-          wed_A,
-          wed_D,
-          thu_A,
-          thu_D,
-          fri_A,
-          fri_D,
-        ] = response.data;
+        const userData = response.data;
 
-        setUsername1(name);
-        setPassword1(password);
-        setAddress1(address);
-        setType1(type);
-
-        setmArr(mon_A);
-        settArr(tue_A);
-        setwArr(wed_A);
-        setrArr(thu_A);
-        setfArr(fri_A);
-
-        setmDep(mon_D);
-        settDep(tue_D);
-        setwDep(wed_D);
-        setrDep(thu_D);
-        setfDep(fri_D);
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
 
         setError(null);
       })
@@ -82,11 +68,10 @@ const View = () => {
         setError(error.response ? error.response.data : error.message);
       });
   };
-*/
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -241,45 +226,29 @@ const Username = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
+
   const fetchAllData = () => {
-    //<====================================================================== UnCOMMENT and make sure variables work
     axios
-      .get(`http://localhost:8081/user/getAllData/${id}`)
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
       .then((response) => {
-        const [
-          name,
-          password,
-          address,
-          type,
-          mon_A,
-          mon_D,
-          tue_A,
-          tue_D,
-          wed_A,
-          wed_D,
-          thu_A,
-          thu_D,
-          fri_A,
-          fri_D,
-        ] = response.data;
+        const userData = response.data;
 
-        setUsername1(name);
-        setPassword1(password);
-        setAddress1(address);
-        setType1(type);
-
-        setmArr(mon_A);
-        settArr(tue_A);
-        setwArr(wed_A);
-        setrArr(thu_A);
-        setfArr(fri_A);
-
-        setmDep(mon_D);
-        settDep(tue_D);
-        setwDep(wed_D);
-        setrDep(thu_D);
-        setfDep(fri_D);
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
 
         setError(null);
       })
@@ -287,11 +256,11 @@ const Username = () => {
         setError(error.response ? error.response.data : error.message);
       });
   };
-*/
 
-  /*
+  
   const handleChangeAll = () => {  //<======================================= UnCOMMENT and go to line 129 or "<button onClick={handleChangeAll}>Submit Changes</button>"
-    axios.post("http://localhost:8081/user/create", {   //<======================================= UnCOMMENT and replace with correct axios function
+    axios.post("http://localhost:8081/user/updateUserInfo", {   //<======================================= UnCOMMENT and replace with correct axios function
+            ident: id,
             username: username1,
             password: password1,
             address: address1,
@@ -310,12 +279,12 @@ const Username = () => {
             console.log(res)
         })
   };
-  */
+  
 
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -339,7 +308,7 @@ const Username = () => {
         <br />
         <p />
         <Link to="/Profile/">
-          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+          <button onClick={handleChangeAll}>Submit Changes</button>
         </Link>
       </div>
     </div>
@@ -376,57 +345,42 @@ const Type = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
-    const fetchAllData = () => {
-      //<====================================================================== UnCOMMENT and make sure variables work
-      axios
-        .get(`http://localhost:8081/user/getAllData/${id}`)
-        .then((response) => {
-          const [
-            name,
-            password,
-            address,
-            type,
-            mon_A,
-            mon_D,
-            tue_A,
-            tue_D,
-            wed_A,
-            wed_D,
-            thu_A,
-            thu_D,
-            fri_A,
-            fri_D,
-          ] = response.data;
-  
-          setUsername1(name);
-          setPassword1(password);
-          setAddress1(address);
-          setType1(type);
-  
-          setmArr(mon_A);
-          settArr(tue_A);
-          setwArr(wed_A);
-          setrArr(thu_A);
-          setfArr(fri_A);
-  
-          setmDep(mon_D);
-          settDep(tue_D);
-          setwDep(wed_D);
-          setrDep(thu_D);
-          setfDep(fri_D);
-  
-          setError(null);
-        })
-        .catch((error) => {
-          setError(error.response ? error.response.data : error.message);
-        });
-    };
-  */
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
 
-  /*
+  const fetchAllData = () => {
+    axios
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
+      .then((response) => {
+        const userData = response.data;
+
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
+
+        setError(null);
+      })
+      .catch((error) => {
+        setError(error.response ? error.response.data : error.message);
+      });
+  };
+  
+
+  
     const handleChangeAll = () => {  //<======================================= UnCOMMENT and go to line 129 or "<button onClick={handleChangeAll}>Submit Changes</button>"
-      axios.post("http://localhost:8081/user/create", {   //<======================================= UnCOMMENT and replace with correct axios function
+      axios.post("http://localhost:8081/user/updateUserInfo", {   //<======================================= UnCOMMENT and replace with correct axios function
+              ident: id,
               username: username1,
               password: password1,
               address: address1,
@@ -445,12 +399,12 @@ const Type = () => {
               console.log(res)
           })
     };
-    */
+    
 
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -476,7 +430,7 @@ const Type = () => {
         <p />
         <br />
         <Link to="/Profile/">
-          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+          <button onClick={handleChangeAll}>Submit Changes</button>
         </Link>
       </div>
     </div>
@@ -805,46 +759,29 @@ const Schedule = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
+
   const fetchAllData = () => {
-    //<====================================================================== UnCOMMENT and make sure variables work
     axios
-      .get(`http://localhost:8081/user/getAllData/${id}`)
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
       .then((response) => {
-        const [
-          name,
-          password,
-          address,
-          type,
-          mon_A,
-          mon_D,
-          tue_A,
-          tue_D,
-          wed_A,
-          wed_D,
-          thu_A,
-          thu_D,
-          fri_A,
-          fri_D,
-        ] = response.data;
+        const userData = response.data;
 
-        setUsername1(name);
-        setPassword1(password);
-        setAddress1(address);
-        setType1(type);
-
-        setmArr(mon_A);
-        settArr(tue_A);
-        setwArr(wed_A);
-        setrArr(thu_A);
-        setfArr(fri_A);
-
-        setmDep(mon_D);
-        settDep(tue_D);
-        setwDep(wed_D);
-        setrDep(thu_D);
-        setfDep(fri_D);
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
 
         setError(null);
       })
@@ -852,11 +789,11 @@ const Schedule = () => {
         setError(error.response ? error.response.data : error.message);
       });
   };
-*/
 
-  /*
+  
   const handleChangeAll = () => {  //<======================================= UnCOMMENT and go to line 634 or "<button onClick={handleChangeAll}>Submit Changes</button>"
-    axios.post("http://localhost:8081/user/create", {   //<======================================= UnCOMMENT and replace with correct axios function
+    axios.post("http://localhost:8081/user/updateUserInfo", {   //<======================================= UnCOMMENT and replace with correct axios function
+            ident: id,
             username: username1,
             password: password1,
             address: address1,
@@ -875,12 +812,12 @@ const Schedule = () => {
             console.log(res)
         })
   };
-  */
+  
 
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -1113,7 +1050,7 @@ const Schedule = () => {
         )}
         <br />
         <Link to="/Profile/">
-          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+          <button onClick={handleChangeAll}>Submit Changes</button>
         </Link>
       </div>
     </div>
@@ -1164,45 +1101,29 @@ const Password = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
+
   const fetchAllData = () => {
-    //<====================================================================== UnCOMMENT and make sure variables work
     axios
-      .get(`http://localhost:8081/user/getAllData/${id}`)
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
       .then((response) => {
-        const [
-          name,
-          password,
-          address,
-          type,
-          mon_A,
-          mon_D,
-          tue_A,
-          tue_D,
-          wed_A,
-          wed_D,
-          thu_A,
-          thu_D,
-          fri_A,
-          fri_D,
-        ] = response.data;
+        const userData = response.data;
 
-        setUsername1(name);
-        setPassword1(password);
-        setAddress1(address);
-        setType1(type);
-
-        setmArr(mon_A);
-        settArr(tue_A);
-        setwArr(wed_A);
-        setrArr(thu_A);
-        setfArr(fri_A);
-
-        setmDep(mon_D);
-        settDep(tue_D);
-        setwDep(wed_D);
-        setrDep(thu_D);
-        setfDep(fri_D);
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
 
         setError(null);
       })
@@ -1210,11 +1131,11 @@ const Password = () => {
         setError(error.response ? error.response.data : error.message);
       });
   };
-*/
+  
 
-  /*
   const handleChangeAll = () => {  //<======================================= UnCOMMENT and go to line 144 or "<button onClick={handleChangeAll}>Submit Changes</button>"
-    axios.post("http://localhost:8081/user/create", {   //<======================================= UnCOMMENT and replace with correct axios function
+    axios.post("http://localhost:8081/user/updateUserInfo", {   //<======================================= UnCOMMENT and replace with correct axios function
+            ident: id,
             username: username1,
             password: password1,
             address: address1,
@@ -1233,12 +1154,12 @@ const Password = () => {
             console.log(res)
         })
   };
-  */
+  
 
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -1274,7 +1195,7 @@ const Password = () => {
               <button
                 onClick={() => {
                   setPassword1(document.getElementById("tempPass2").value);
-                  //handleChangeAll();
+                  handleChangeAll;
                   // <=============================================================== UnCOMMENT and change button to correct format if needed. Also add going back to View Profile when clicked
                 }}
               >
@@ -1319,45 +1240,29 @@ const Address = () => {
   const [error, setError] = useState(null);
 
   //const id = getClientID(); <=========================================================================================== UnCOMMENT and put correct function
-  /*
+  const idHandler = IdHandlerComponent();
+  const id = idHandler.getClientID();
+
   const fetchAllData = () => {
-    //<====================================================================== UnCOMMENT and make sure variables work
     axios
-      .get(`http://localhost:8081/user/getAllData/${id}`)
+      .get(`http://localhost:8081/user/getUserInfo/${id}`)
       .then((response) => {
-        const [
-          name,
-          password,
-          address,
-          type,
-          mon_A,
-          mon_D,
-          tue_A,
-          tue_D,
-          wed_A,
-          wed_D,
-          thu_A,
-          thu_D,
-          fri_A,
-          fri_D,
-        ] = response.data;
+        const userData = response.data;
 
-        setUsername1(name);
-        setPassword1(password);
-        setAddress1(address);
-        setType1(type);
-
-        setmArr(mon_A);
-        settArr(tue_A);
-        setwArr(wed_A);
-        setrArr(thu_A);
-        setfArr(fri_A);
-
-        setmDep(mon_D);
-        settDep(tue_D);
-        setwDep(wed_D);
-        setrDep(thu_D);
-        setfDep(fri_D);
+        setName(userData.name);
+        setPassword(userData.password);
+        setAddress(userData.address);
+        setType(userData.type);
+        setMon_A(userData.mon_A);
+        setTue_A(userData.tue_A);
+        setWed_A(userData.wed_A);
+        setThu_A(userData.thu_A);
+        setFri_A(userData.fri_A);
+        setMon_D(userData.mon_D);
+        setTue_D(userData.tue_D);
+        setWed_D(userData.wed_D);
+        setThu_D(userData.thu_D);
+        setFri_D(userData.fri_D);
 
         setError(null);
       })
@@ -1365,11 +1270,10 @@ const Address = () => {
         setError(error.response ? error.response.data : error.message);
       });
   };
-*/
-
-  /*
-  const handleChangeAll = () => {  //<======================================= UnCOMMENT and go to line 128 or "<button onClick={handleChangeAll}>Submit Changes</button>"
-    axios.post("http://localhost:8081/user/create", {   //<======================================= UnCOMMENT and replace with correct axios function
+  
+  const handleChangeAll = () => {  
+    axios.post("http://localhost:8081/user/updateUserInfo", {  
+            ident: id,
             username: username1,
             password: password1,
             address: address1,
@@ -1388,12 +1292,12 @@ const Address = () => {
             console.log(res)
         })
   };
-  */
+  
 
   const [once, setOnce] = useState(false);
   useEffect(() => {
     if (!once) {
-      //fetchAllData();
+      fetchAllData();
       setOnce(true);
     }
   }, []);
@@ -1415,7 +1319,7 @@ const Address = () => {
         <br />
         <p />
         <Link to="/Profile/">
-          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+          <button onClick={handleChangeAll}>Submit Changes</button>
         </Link>
       </div>
     </div>

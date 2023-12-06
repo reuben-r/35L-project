@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    useHistory,
-    Switch,
+  BrowserRouter as Router,
+  Route,
+  Link,
+  useHistory,
+  Switch,
 } from "react-router-dom";
 
 import "./signup.css";
-
-
-
-
 
 const View = () => {
   //Replace with variables from server
@@ -216,7 +212,6 @@ const View = () => {
       </div>
     </div>
   );
-
 };
 
 const Username = () => {
@@ -343,7 +338,9 @@ const Username = () => {
         <br />
         <br />
         <p />
-        <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        <Link to="/Profile/">
+          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        </Link>
       </div>
     </div>
   );
@@ -478,7 +475,9 @@ const Type = () => {
         <br />
         <p />
         <br />
-        <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        <Link to="/Profile/">
+          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        </Link>
       </div>
     </div>
   );
@@ -1113,27 +1112,27 @@ const Schedule = () => {
           </div>
         )}
         <br />
-        <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        <Link to="/Profile/">
+          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        </Link>
       </div>
     </div>
   );
 
-
-function changeTime(time, sign) {
+  function changeTime(time, sign) {
     if (sign == "+") {
-        if (time == 24) {
-            return time;
-        }
-        time++;
+      if (time == 24) {
+        return time;
+      }
+      time++;
     } else {
-        if (time == 0) {
-            return time;
-        }
-        time--;
+      if (time == 0) {
+        return time;
+      }
+      time--;
     }
     return time;
-}
-
+  }
 };
 
 const Password = () => {
@@ -1271,15 +1270,17 @@ const Password = () => {
           ></input>
           <br />
           {tempPass1 === tempPass2 && tempPass1 != "" ? (
-            <button
-              onClick={() => {
-                setPassword1(document.getElementById("tempPass2").value);
-                //handleChangeAll();
-                // <=============================================================== UnCOMMENT and change button to correct format if needed. Also add going back to View Profile when clicked
-              }}
-            >
-              Change
-            </button>
+            <Link to="/Profile/">
+              <button
+                onClick={() => {
+                  setPassword1(document.getElementById("tempPass2").value);
+                  //handleChangeAll();
+                  // <=============================================================== UnCOMMENT and change button to correct format if needed. Also add going back to View Profile when clicked
+                }}
+              >
+                Change
+              </button>
+            </Link>
           ) : null}
         </div>
       )}
@@ -1413,68 +1414,65 @@ const Address = () => {
         <br />
         <br />
         <p />
-        <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        <Link to="/Profile/">
+          <button /*onClick={handleChangeAll}*/>Submit Changes</button>
+        </Link>
       </div>
     </div>
   );
 };
 
 const Profile = () => (
-    
-    <div>
+  <div>
     <br></br>
-        <Router>
-        <>
+    <Router>
+      <>
+        <div className="navBar">
+          <Link to="/Profile/">
+            <button>View Profile</button>
+          </Link>
+          <Link to="/Profile/username">
+            <button>Edit Username</button>
+          </Link>
+          <Link to="/Profile/type">
+            <button>Change Profile Type</button>
+          </Link>
+          <Link to="/Profile/schedule">
+            <button>Edit Schedule</button>
+          </Link>
+          <Link to="/Profile/password">
+            <button>Edit Password</button>
+          </Link>
+          <Link to="/Profile/address">
+            <button>Edit Address</button>
+          </Link>
+        </div>
 
-            <div className="navBar">
-
-                <Link to="/Profile/">
-                    <button>View Profile</button>
-                </Link>
-                <Link to="/Profile/username">
-                    <button>Edit Username</button>
-                </Link>
-                <Link to="/Profile/type">
-                    <button>Change Profile Type</button>
-                </Link>
-                <Link to="/Profile/schedule">
-                    <button>Edit Schedule</button>
-                </Link>
-                <Link to="/Profile/password">
-                    <button>Edit Password</button>
-                </Link>
-                <Link to="/Profile/address">
-                    <button>Edit Address</button>
-                </Link>
-            </div>
-
-
-            <div className="LinkPage">
-            <Switch>
-                <Route exact path="/Profile/" component={View}>
-                    <View />
-                </Route>
-                <Route exact path="/Profile/username" component={Username}>
-                    <Username />
-                </Route>
-                <Route exact path="/Profile/type" component={Type}>
-                    <Type />
-                </Route>
-                <Route exact path="/Profile/schedule" component={Schedule}>
-                    <Schedule />
-                </Route>
-                <Route exact path="/Profile/password" component={Password}>
-                    <Password />
-                </Route>
-                <Route exact path="/Profile/address" component={Address}>
-                    <Address />
-                </Route>
-            </Switch>
-                </div>
-            </>
-        </Router>
-    </div>
-
+        <div className="LinkPage">
+          <Switch>
+            <Route exact path="/Profile/" component={View}>
+              <View />
+            </Route>
+            <Route exact path="/Profile/username" component={Username}>
+              <Username />
+            </Route>
+            <Route exact path="/Profile/type" component={Type}>
+              <Type />
+            </Route>
+            <Route exact path="/Profile/schedule" component={Schedule}>
+              <Schedule />
+            </Route>
+            <Route exact path="/Profile/password" component={Password}>
+              <Password />
+            </Route>
+            <Route exact path="/Profile/address" component={Address}>
+              <Address />
+            </Route>
+          </Switch>
+        </div>
+      </>
+    </Router>
+  </div>
 );
 
 export default Profile;

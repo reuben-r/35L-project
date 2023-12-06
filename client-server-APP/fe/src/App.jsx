@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import Signup from "./signup";
 import Schedule from "./schedule";
-import EditProfile from "./editProfile";
+import Profile from "./Profile";
 import Signin from "./signin";
 import Tutorial from "./tutorial";
 import Profiles_Driver from "./profilesAPI_Driver";

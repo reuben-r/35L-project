@@ -47,20 +47,20 @@ const View = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })
@@ -235,20 +235,20 @@ const Username = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })
@@ -354,20 +354,20 @@ const Type = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })
@@ -768,20 +768,20 @@ const Schedule = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })
@@ -1110,20 +1110,20 @@ const Password = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })
@@ -1249,20 +1249,20 @@ const Address = () => {
       .then((response) => {
         const userData = response.data;
 
-        setName(userData.name);
-        setPassword(userData.password);
-        setAddress(userData.address);
-        setType(userData.type);
-        setMon_A(userData.mon_A);
-        setTue_A(userData.tue_A);
-        setWed_A(userData.wed_A);
-        setThu_A(userData.thu_A);
-        setFri_A(userData.fri_A);
-        setMon_D(userData.mon_D);
-        setTue_D(userData.tue_D);
-        setWed_D(userData.wed_D);
-        setThu_D(userData.thu_D);
-        setFri_D(userData.fri_D);
+        setUsername1(userData.name);
+        setPassword1(userData.password);
+        setAddress1(userData.address);
+        setType1(userData.type);
+        setmArr(userData.mon_A);
+        settArr(userData.tue_A);
+        setwArr(userData.wed_A);
+        setrArr(userData.thu_A);
+        setfArr(userData.fri_A);
+        setmDep(userData.mon_D);
+        settDep(userData.tue_D);
+        setwDep(userData.wed_D);
+        setrDep(userData.thu_D);
+        setfDep(userData.fri_D);
 
         setError(null);
       })

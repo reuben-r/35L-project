@@ -12,7 +12,7 @@ const DistanceCalculator = () => {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAagYhKsf953bG7ul1LSawNoNCxsE6CWMQ&libraries=places&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=KEY&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
 

@@ -20,7 +20,7 @@ const wrapperStyle = {
 const Rider = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyAagYhKsf953bG7ul1LSawNoNCxsE6CWMQ",
+    googleMapsApiKey: "KEY",
   });
   
   const { info } = useGlobalState();

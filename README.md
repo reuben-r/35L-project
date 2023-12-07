@@ -1,4 +1,7 @@
 ## Running the app locally
+__Note:__ This tarball contains ONLY the prod branch. Due to 2 group members dropping the course in the past few weeks, we were unable to integrate all parts of the test branch. To access this unintegrated branch (test), visit the repository at https://github.com/reuben-r/35L-project. The un-integrated features in this branch include integration with a users UCLA class schedule, more dynamic edit profile page, more seamless ride planning.<br>
+
+
 1. Obtain Google Maps API key
   - Go to console.cloud.google.com/google/maps-apis and create account or log in to existing account
   - Create a new project, navigate to new project

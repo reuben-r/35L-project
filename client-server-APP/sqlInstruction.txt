@@ -1,8 +1,12 @@
+For the MySQL setup, open the file from client-server-app.
+Run the code and save it.
+Refresh the schemas.
+
 1. Go to be/config
 
 2. Open the file named db.js using any editor
 
-3. Change the password of your localhost(for me is RAY19991121) and user name(for me is root) if necessary.
+3. Change the password of your localhost(for me is 19991121) and user name(for me is root) if necessary.
 
 4. Be sure to install: 
 	
@@ -12,3 +16,7 @@
 
 5. Run npm start on be first then run npm start for fe. 
 (Backend should be ready first)
+
+6. Open mySQL workbench on local machine and connect a new database
+7. Create a scheme named "userdb"
+8. Execute the SQL command found in "userDB.sql" to create the necessary tables
